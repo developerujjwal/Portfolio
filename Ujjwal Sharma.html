@@ -1,0 +1,516 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ujjwal Sharma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: slim top bar; hero splits into name + a clickable app-architecture stack; later sections use a narrow heading column beside wide content. */
+:root{
+  --bg:#F1F4F8;
+  --surface:#FFFFFF;
+  --ink:#0F1A2B;
+  --muted:#52607A;
+  --line:#D5DCE7;
+  --accent:#0A5CFF;
+  --accent-ink:#FFFFFF;
+  --accent-soft:#E3ECFF;
+  --live:#0E7A4B;
+  --live-soft:#DDF3E8;--hl:#9A4A00;
+  --display:'Familjen Grotesk','Helvetica Neue',Arial,sans-serif;
+  --body:'Hanken Grotesk','Helvetica Neue',Arial,sans-serif;
+  --code:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --gutter:clamp(16px,4vw,48px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B111B;--surface:#121B29;--ink:#E7EDF6;--muted:#9AA8BF;--line:#243248;
+    --accent:#5C9CFF;--accent-ink:#06101F;--accent-soft:#16264A;--live:#4FD197;--live-soft:#0F2E22;--hl:#F2B86B;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B111B;--surface:#121B29;--ink:#E7EDF6;--muted:#9AA8BF;--line:#243248;
+  --accent:#5C9CFF;--accent-ink:#06101F;--accent-soft:#16264A;--live:#4FD197;--live-soft:#0F2E22;--hl:#F2B86B;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;padding-inline:var(--gutter);padding-block:0 4rem}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1160px;margin-inline:auto}
+h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0;text-wrap:balance}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.7rem}
+.bar strong{font-family:var(--display);font-size:1.1rem;font-weight:700}
+.bar nav{display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap}
+.bar nav a{text-decoration:none;color:var(--muted);font-size:.95rem;font-weight:500}
+.bar nav a:hover{color:var(--ink)}
+.theme{font:inherit;font-size:.85rem;font-weight:500;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:.3rem .8rem;cursor:pointer}
+.theme:hover{border-color:var(--accent)}
+@media (max-width:640px){.bar nav a{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(2rem,5vw,4.5rem);padding-block:clamp(2.5rem,7vw,5.5rem) clamp(2.5rem,6vw,4.5rem);align-items:start}
+.hero-main{min-width:0}
+.hero h1{font-size:clamp(3.1rem,9.5vw,7rem);font-weight:700;letter-spacing:-.035em}
+.role{font-family:var(--display);font-size:clamp(1.25rem,2.4vw,1.7rem);font-weight:500;margin:1.2rem 0 0;max-width:22ch;line-height:1.2}
+.lede{color:var(--muted);max-width:48ch;margin:1.1rem 0 0}
+.actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font:inherit;font-weight:600;font-size:.98rem;text-decoration:none;padding:.7rem 1.15rem;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.06)}
+.facts{display:flex;flex-wrap:wrap;gap:1.8rem;margin:2.2rem 0 0;padding:0;list-style:none}
+.facts li{display:flex;flex-direction:column;min-width:0}
+.facts b{font-family:var(--display);font-size:1.5rem;line-height:1.1}
+.facts span{color:var(--muted);font-size:.9rem}
+
+/* architecture stack */
+.stack{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.2rem}
+.stack h2{font-size:1.15rem;font-weight:600}
+.stack p.hint{color:var(--muted);font-size:.9rem;margin:.3rem 0 1rem}
+.layers{display:flex;flex-direction:column;gap:.5rem;padding:0;margin:0;list-style:none}
+.layer{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:.7rem .9rem;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;animation:rise .5s ease backwards}
+.layer:nth-child(2){animation-delay:.08s}.layer:nth-child(3){animation-delay:.16s}.layer:nth-child(4){animation-delay:.24s}
+.layer b{font-family:var(--display);font-size:1.05rem;font-weight:600}
+.layer code{font-family:var(--code);font-size:.78rem;color:var(--muted)}
+.layer:hover{border-color:var(--accent)}
+.layer[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.layer[aria-pressed="true"] code{color:inherit;opacity:.85}
+.flow{display:flex;justify-content:center;color:var(--muted);font-family:var(--code);font-size:.72rem;line-height:1;padding:.05rem 0}
+.detail{margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--line);min-height:8.5rem}
+.detail p{margin:0 0 .8rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;padding:0;margin:0;list-style:none}
+.tags li{font-size:.84rem;font-weight:500;background:var(--accent-soft);color:var(--ink);padding:.2rem .6rem;border-radius:6px}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (max-width:900px){.hero{grid-template-columns:minmax(0,1fr)}}
+
+/* sections */
+section.block{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:clamp(1rem,4vw,3.5rem);padding-block:clamp(2rem,5vw,3.5rem);border-top:1px solid var(--line)}
+section.block>h2{font-size:1.6rem;font-weight:600;letter-spacing:-.01em;position:sticky;top:calc(4.2rem + env(safe-area-inset-top,0px));align-self:start}
+@media (max-width:760px){section.block{grid-template-columns:minmax(0,1fr)}section.block>h2{position:static}}
+.content{min-width:0}
+
+/* apps */
+.apps{display:flex;flex-direction:column}
+.app{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem 2rem;padding-block:1.6rem;border-bottom:1px solid var(--line)}
+.app:first-child{padding-top:0}
+.app:last-child{border-bottom:0;padding-bottom:0}
+.app h3{font-size:clamp(1.5rem,3vw,2rem);font-weight:700;letter-spacing:-.02em}
+.pkg{font-family:var(--code);font-size:.8rem;color:var(--muted);margin:.35rem 0 0;overflow-wrap:anywhere}
+.app ul.points{margin:.9rem 0 .9rem;padding-left:1.1rem;max-width:62ch}
+.app ul.points li{margin-bottom:.35rem}
+.live{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:600;color:var(--live);background:var(--live-soft);padding:.2rem .65rem;border-radius:999px;height:fit-content;white-space:nowrap}
+.live::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--live)}
+.app .side{display:flex;flex-direction:column;align-items:flex-end;gap:.8rem}
+@media (max-width:640px){.app{grid-template-columns:minmax(0,1fr)}.app .side{align-items:flex-start;flex-direction:row;flex-wrap:wrap;order:-1}}
+
+/* experience */
+.job-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.3rem 1.5rem}
+.job-head h3{font-size:1.5rem;font-weight:700}
+.job-head .when{font-family:var(--code);font-size:.85rem;color:var(--muted);padding-top:.35rem}
+.company{color:var(--muted);margin:.2rem 0 1rem}
+.job ul{margin:0;padding-left:1.1rem;max-width:68ch}
+.job li{margin-bottom:.55rem}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.8rem 2.5rem;margin:0}
+.skills div{min-width:0}
+.skills dt{font-family:var(--display);font-weight:600;font-size:1.05rem;margin-bottom:.5rem}
+.skills dd{margin:0}
+@media (max-width:640px){.skills{grid-template-columns:minmax(0,1fr)}}
+
+/* education */
+.edu{display:flex;flex-direction:column;gap:1rem;margin:0 0 2rem;padding:0;list-style:none}
+.edu li{display:flex;justify-content:space-between;gap:.3rem 2rem;flex-wrap:wrap}
+.edu b{font-family:var(--display);font-weight:600;font-size:1.15rem}
+.edu span{color:var(--muted)}
+.edu .yr{font-family:var(--code);font-size:.85rem}
+.wins h3{font-size:1.1rem;font-weight:600;margin-bottom:.6rem}
+.wins ul{margin:0;padding-left:1.1rem}
+.wins li{margin-bottom:.3rem}
+
+/* contact */
+.contact h3{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.025em;max-width:18ch}
+.rows{margin:1.6rem 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.rows li{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.9rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.rows .k{color:var(--muted);font-size:.9rem;min-width:5.5rem}
+.rows .v{font-family:var(--code);font-size:.95rem;overflow-wrap:anywhere;min-width:0;flex:1}
+.rows a.v{text-decoration:none}
+.rows a.v:hover{color:var(--accent)}
+.copy{font:inherit;font-size:.82rem;font-weight:600;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:.3rem .75rem;cursor:pointer}
+.copy:hover{border-color:var(--accent)}
+footer{margin-top:3rem;color:var(--muted);font-size:.88rem}
+/* status, nav state */
+.status{display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:600;color:var(--live);background:var(--live-soft);padding:.25rem .8rem;border-radius:999px;margin-bottom:1.3rem}
+.status::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--live)}
+.bar nav a.active{color:var(--ink);box-shadow:0 2px 0 var(--accent)}
+
+/* how I build */
+.build{display:flex;flex-direction:column;gap:3rem}
+.build h3{font-size:1.4rem;font-weight:600;margin-bottom:.4rem;letter-spacing:-.01em}
+.build .sub{color:var(--muted);margin:0 0 1.1rem;max-width:62ch}
+.flowbox,.codebox{border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.flowbox{padding:1.1rem}
+.switch{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;margin-bottom:1rem;background:var(--bg)}
+.switch button{font:inherit;font-size:.88rem;font-weight:600;border:0;background:transparent;color:var(--muted);padding:.35rem .95rem;border-radius:999px;cursor:pointer}
+.switch button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.nodes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.5rem}
+.node{border:1px solid var(--line);border-radius:10px;padding:.65rem .5rem;text-align:center;background:var(--bg);color:var(--muted);transition:background .25s,border-color .25s,color .25s}
+.node b{display:block;font-family:var(--display);font-size:.98rem;color:inherit}
+.node small{font-size:.76rem}
+.node.hit{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.node.miss{border-style:dashed}
+.flownote{margin:1rem 0 0;color:var(--muted);min-height:3.2rem}
+@media (max-width:760px){.nodes{grid-template-columns:minmax(0,1fr)}}
+
+.codebox{overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{font-family:var(--code);font-size:.82rem;background:transparent;color:var(--muted);border:0;border-right:1px solid var(--line);padding:.65rem 1.1rem;cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);background:var(--bg);box-shadow:inset 0 -2px 0 var(--accent)}
+pre.code{margin:0;padding:1rem 1.1rem;overflow-x:auto;font-family:var(--code);font-size:.84rem;line-height:1.7;color:var(--ink);tab-size:2}
+.code .k{color:var(--accent);font-weight:500}
+.code .s{color:var(--live)}
+.code .c{color:var(--muted);font-style:italic}
+.code .t{color:var(--hl)}
+
+.pipe{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.6rem;padding:0;margin:0;list-style:none}
+.pipe li{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:0 0 10px 10px;padding:.75rem .85rem;min-width:0}
+.pipe b{display:block;font-family:var(--display);font-size:1.05rem;margin-bottom:.2rem}
+.pipe span{color:var(--muted);font-size:.9rem;line-height:1.45;display:block}
+@media (max-width:900px){.pipe{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.pipe{grid-template-columns:minmax(0,1fr)}}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <strong>Ujjwal Sharma</strong>
+    <nav aria-label="Sections">
+      <a href="#apps">Apps</a>
+      <a href="#build">How I build</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+      <button class="theme" id="theme" type="button" aria-label="Switch colour theme">Theme</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero" aria-labelledby="top">
+    <div class="hero-main">
+      <span class="status">Open to Flutter roles</span>
+      <h1 id="top">Ujjwal Sharma</h1>
+      <p class="role">Flutter developer building apps that ship to the Play Store.</p>
+      <p class="lede">Over a year of production Flutter work: BLoC and MVVM on Clean Architecture, REST APIs, Firebase and offline-first storage. I own features from first widget to release and Crashlytics follow-up.</p>
+      <div class="actions">
+        <a class="btn primary" href="#apps">See the live apps</a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+      <ul class="facts">
+        <li><b>3</b><span>Play Store apps</span></li>
+        <li><b>1+ year</b><span>Flutter in production</span></li>
+        <li><b>Japan</b><span>International client</span></li>
+      </ul>
+    </div>
+
+    <aside class="stack" aria-label="How my apps are structured">
+      <h2>How my apps are structured</h2>
+      <p class="hint">Select a layer.</p>
+      <div class="layers" id="layers" role="group" aria-label="App layers">
+        <button class="layer" type="button" aria-pressed="true" data-i="0"><b>Widgets</b><code>UI layer</code></button>
+        <div class="flow" aria-hidden="true">events up, state down</div>
+        <button class="layer" type="button" aria-pressed="false" data-i="1"><b>BLoC</b><code>business logic</code></button>
+        <div class="flow" aria-hidden="true">calls</div>
+        <button class="layer" type="button" aria-pressed="false" data-i="2"><b>Repository</b><code>single source of data</code></button>
+        <div class="flow" aria-hidden="true">reads and writes</div>
+        <button class="layer" type="button" aria-pressed="false" data-i="3"><b>Data sources</b><code>network and device</code></button>
+      </div>
+      <div class="detail" id="detail" aria-live="polite">
+        <p id="detail-text"></p>
+        <ul class="tags" id="detail-tags"></ul>
+      </div>
+    </aside>
+  </section>
+
+  <section class="block" id="apps">
+    <h2>Apps on the Play Store</h2>
+    <div class="content apps">
+      <article class="app">
+        <div>
+          <h3>Quest App</h3>
+          <p class="pkg">com.questalliance.plemyquest</p>
+          <ul class="points">
+            <li>Vocational training learning platform, built in Flutter with BLoC and MVVM on Clean Architecture.</li>
+            <li>One cross-platform codebase for mobile and web, with REST APIs, local caching and structured state handling.</li>
+          </ul>
+          <ul class="tags"><li>Flutter</li><li>Dart</li><li>BLoC</li><li>MVVM</li></ul>
+        </div>
+        <div class="side">
+          <span class="live">Live on Play Store</span>
+          <a class="btn" href="https://play.google.com/store/apps/details?id=com.questalliance.plemyquest&hl=en_IN" target="_blank" rel="noopener">Open on Play Store</a>
+        </div>
+      </article>
+
+      <article class="app">
+        <div>
+          <h3>ATL Yard App</h3>
+          <p class="pkg">com.atl.yardapp</p>
+          <ul class="points">
+            <li>Customer app for a vehicle logistics company in Japan. Users manage bookings and track shipments.</li>
+            <li>Responsive UI with APIs for real-time tracking, booking and logistics updates, plus secure data handling and performance tuning.</li>
+            <li>Built with an international client, using BLoC and MVVM.</li>
+          </ul>
+          <ul class="tags"><li>Flutter</li><li>Dart</li><li>BLoC</li><li>MVVM</li><li>International client</li></ul>
+        </div>
+        <div class="side">
+          <span class="live">Live on Play Store</span>
+          <a class="btn" href="https://play.google.com/store/apps/details?id=com.atl.yardapp&hl=en_IN" target="_blank" rel="noopener">Open on Play Store</a>
+        </div>
+      </article>
+
+      <article class="app">
+        <div>
+          <h3>Khilta Bachpan</h3>
+          <p class="pkg">com.mw.mobile_creche</p>
+          <ul class="points">
+            <li>Crèche management app for child monitoring and daily operations.</li>
+            <li>Reusable, modular components and a responsive UI, with APIs and secure data handling in production.</li>
+          </ul>
+          <ul class="tags"><li>Flutter</li><li>Dart</li><li>BLoC</li><li>MVVM</li></ul>
+        </div>
+        <div class="side">
+          <span class="live">Live on Play Store</span>
+          <a class="btn" href="https://play.google.com/store/apps/details?id=com.mw.mobile_creche&hl=en_IN" target="_blank" rel="noopener">Open on Play Store</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="build">
+    <h2>How I build</h2>
+    <div class="content build">
+      <div>
+        <h3>Data flow, online and offline</h3>
+        <p class="sub">Screens read from the repository, and the repository decides where the data comes from. Switch the connection to see what changes.</p>
+        <div class="flowbox">
+          <div class="switch" role="group" aria-label="Connection">
+            <button type="button" id="net-on" aria-pressed="true">Online</button>
+            <button type="button" id="net-off" aria-pressed="false">Offline</button>
+          </div>
+          <div class="nodes">
+            <div class="node hit"><b>Widget</b><small>shows the state</small></div>
+            <div class="node hit"><b>BLoC</b><small>handles the event</small></div>
+            <div class="node hit"><b>Repository</b><small>picks the source</small></div>
+            <div class="node hit" id="n-api"><b>REST API</b><small id="n-api-s">Dio request</small></div>
+            <div class="node hit" id="n-cache"><b>Local cache</b><small id="n-cache-s">Hive, SQLite</small></div>
+          </div>
+          <p class="flownote" id="flownote" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div>
+        <h3>One feature, layer by layer</h3>
+        <p class="sub">A simplified example of the pattern I use in my apps. It illustrates the structure and is not code from a client project.</p>
+        <div class="codebox">
+          <div class="tabs" role="tablist" aria-label="Code example">
+            <button class="tab" role="tab" type="button" aria-selected="true" data-k="bloc">courses_bloc.dart</button>
+            <button class="tab" role="tab" type="button" aria-selected="false" data-k="repo">course_repository.dart</button>
+            <button class="tab" role="tab" type="button" aria-selected="false" data-k="ui">courses_screen.dart</button>
+          </div>
+          <pre class="code" id="code" tabindex="0"></pre>
+        </div>
+      </div>
+
+      <div>
+        <h3>From commit to Play Store</h3>
+        <p class="sub">Each release goes through the same steps, and what Crashlytics reports after release feeds the next fix.</p>
+        <ol class="pipe">
+          <li><b>Review</b><span>Code reviews against shared coding standards</span></li>
+          <li><b>Test</b><span>Unit, widget and integration tests</span></li>
+          <li><b>Build</b><span>GitHub Actions prepares reproducible builds</span></li>
+          <li><b>Release</b><span>Play Store deployment and release updates</span></li>
+          <li><b>Monitor</b><span>Crashlytics after release, then fix</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experience">
+    <h2>Experience</h2>
+    <div class="content job">
+      <div class="job-head">
+        <h3>Flutter Developer</h3>
+        <span class="when">Aug 2025 to present</span>
+      </div>
+      <p class="company">Microware Computing &amp; Consulting Pvt. Ltd., Gurugram</p>
+      <ul>
+        <li>Develop and ship production Flutter features end to end across live Play Store apps: development, API integration, testing, bug fixing, release updates and Crashlytics monitoring after release.</li>
+        <li>Build reusable UI components with BLoC, Riverpod, GetX and Provider, applying MVVM and Clean Architecture to keep UI, business logic, repository and data layers separate.</li>
+        <li>Integrate REST APIs with authentication, error-state handling and offline-first caching using Dio, Hive and SQLite.</li>
+        <li>Implement Firebase Cloud Messaging with foreground and background handling, and deep links that open the right screen.</li>
+        <li>Automate build, test and release preparation with GitHub Actions, so builds are reproducible across the team.</li>
+        <li>Build location features with the Google Maps SDK: pickup and drop selection, place search and live tracking.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" id="skills">
+    <h2>Skills</h2>
+    <dl class="content skills">
+      <div><dt>Flutter and Dart</dt><dd><ul class="tags"><li>Dart</li><li>Flutter SDK</li><li>Mobile and Web</li><li>Platform Channels</li><li>Isolates</li><li>Responsive UI</li><li>Animations</li></ul></dd></div>
+      <div><dt>State management</dt><dd><ul class="tags"><li>BLoC</li><li>Cubit</li><li>Riverpod</li><li>GetX</li><li>Provider</li></ul></dd></div>
+      <div><dt>Architecture</dt><dd><ul class="tags"><li>MVVM</li><li>Clean Architecture</li><li>Repository Pattern</li><li>Dependency Injection</li><li>SOLID</li><li>Offline-first</li><li>Caching</li><li>Pagination</li></ul></dd></div>
+      <div><dt>Backend and storage</dt><dd><ul class="tags"><li>REST APIs</li><li>Dio</li><li>JSON</li><li>OAuth 2.0</li><li>JWT</li><li>WebSockets</li><li>Hive</li><li>SQLite</li><li>SQL</li><li>Supabase</li><li>NestJS</li><li>Prisma</li><li>PostgreSQL</li></ul></dd></div>
+      <div><dt>Firebase</dt><dd><ul class="tags"><li>Cloud Messaging</li><li>Crashlytics</li><li>Authentication</li><li>Remote Config</li><li>Firestore</li><li>Realtime Database</li><li>Analytics</li></ul></dd></div>
+      <div><dt>Tools and delivery</dt><dd><ul class="tags"><li>Git</li><li>GitHub</li><li>GitHub Actions</li><li>CI/CD</li><li>Postman</li><li>Unit, widget and integration tests</li><li>Google Maps SDK</li><li>Geofencing</li><li>Text-to-Speech</li><li>Deep links</li><li>i18n</li><li>Play Store deployment</li><li>Agile and Scrum</li><li>Jira</li></ul></dd></div>
+    </dl>
+  </section>
+
+  <section class="block" id="education">
+    <h2>Education</h2>
+    <div class="content">
+      <ul class="edu">
+        <li><div><b>Master of Computer Applications</b><br><span>Gurugram University, Gurugram</span></div><span class="yr">2023 to 2025</span></li>
+        <li><div><b>Bachelor of Computer Applications, Cloud Computing</b><br><span>SGT University, Gurugram</span></div><span class="yr">2020 to 2023</span></li>
+      </ul>
+      <div class="wins">
+        <h3>Awards</h3>
+        <ul>
+          <li>1st place, Creative Minds, EDUDE FIESTA, K.R. Mangalam University</li>
+          <li>1st place, Synergy 2022, SGT University</li>
+          <li>3rd place, Ideathon, PRADARSHAN 2.0, SGT University</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block contact" id="contact">
+    <h2>Contact</h2>
+    <div class="content">
+      <h3>Looking for a Flutter developer? Let's talk.</h3>
+      <ul class="rows">
+        <li><span class="k">Email</span><span class="v" id="v-email">developer.ujjwalsharma@gmail.com</span><button class="copy" type="button" data-copy="v-email">Copy</button></li>
+        <li><span class="k">Phone</span><span class="v" id="v-phone">+91 8527038960</span><button class="copy" type="button" data-copy="v-phone">Copy</button></li>
+        <li><span class="k">LinkedIn</span><a class="v" href="https://linkedin.com/in/developerujjwalsharma" target="_blank" rel="noopener">linkedin.com/in/developerujjwalsharma</a></li>
+        <li><span class="k">GitHub</span><a class="v" href="https://github.com/developerujjwal" target="_blank" rel="noopener">github.com/developerujjwal</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Ujjwal Sharma, Flutter developer</footer>
+</main>
+
+<script>
+(function(){
+  var layers=[
+    {t:"Screens are built from small, reusable widgets that only draw the current state and send user events up. Layouts respond to screen size on mobile and web.",g:["Flutter","Responsive UI","Animations","Custom widgets"]},
+    {t:"Events go in, states come out. Business logic lives here instead of in widgets, which keeps screens simple and the logic easy to test.",g:["BLoC","Cubit","Riverpod","GetX","Provider"]},
+    {t:"The one place the app asks for data. It decides whether to read from the network or the local cache, and hides that choice from the layers above.",g:["Repository pattern","Dependency injection","Offline-first caching"]},
+    {t:"REST calls with authentication and error handling, local storage for offline use, and Firebase for push notifications, auth and crash reports.",g:["Dio","REST APIs","JWT","Hive","SQLite","Firebase"]}
+  ];
+  var btns=document.querySelectorAll('.layer');
+  var text=document.getElementById('detail-text');
+  var tags=document.getElementById('detail-tags');
+  function show(i){
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(+b.dataset.i===i))});
+    text.textContent=layers[i].t;
+    tags.innerHTML='';
+    layers[i].g.forEach(function(x){var li=document.createElement('li');li.textContent=x;tags.appendChild(li)});
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(+b.dataset.i)})});
+  show(0);
+
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var el=document.getElementById(b.dataset.copy);
+      var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1400)};
+      var select=function(){var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected';setTimeout(function(){b.textContent='Copy'},1400)};
+      try{
+        if(navigator.clipboard&&navigator.clipboard.writeText){
+          navigator.clipboard.writeText(el.textContent.trim()).then(done,select);
+        }else{select()}
+      }catch(e){select()}
+    });
+  });
+
+  /* online / offline flow */
+  var bOn=document.getElementById('net-on'),bOff=document.getElementById('net-off');
+  var nApi=document.getElementById('n-api'),nApiS=document.getElementById('n-api-s');
+  var nCache=document.getElementById('n-cache'),nCacheS=document.getElementById('n-cache-s');
+  var note=document.getElementById('flownote');
+  function net(online){
+    bOn.setAttribute('aria-pressed',String(online));
+    bOff.setAttribute('aria-pressed',String(!online));
+    nApi.className='node '+(online?'hit':'miss');
+    nApiS.textContent=online?'Dio request':'unreachable';
+    nCacheS.textContent=online?'saves the fresh copy':'serves the last copy';
+    note.textContent=online
+      ?'The repository calls the API, saves the response to the local cache and returns fresh data to the BLoC.'
+      :'The API call fails, so the repository returns the last saved copy from the cache. The screen still opens with data.';
+  }
+  bOn.addEventListener('click',function(){net(true)});
+  bOff.addEventListener('click',function(){net(false)});
+  net(true);
+
+  /* code example */
+  var src={
+bloc:"sealed class CoursesEvent {}\nclass CoursesRequested extends CoursesEvent {}\n\nsealed class CoursesState {}\nclass CoursesLoading extends CoursesState {}\nclass CoursesLoaded extends CoursesState {\n  CoursesLoaded(this.items);\n  final List<Course> items;\n}\nclass CoursesFailure extends CoursesState {\n  CoursesFailure(this.message);\n  final String message;\n}\n\nclass CoursesBloc extends Bloc<CoursesEvent, CoursesState> {\n  CoursesBloc(this._repo) : super(CoursesLoading()) {\n    on<CoursesRequested>((event, emit) async {\n      try {\n        emit(CoursesLoaded(await _repo.courses()));\n      } catch (_) {\n        emit(CoursesFailure('Could not load courses'));\n      }\n    });\n  }\n\n  final CourseRepository _repo;\n}",
+repo:"class CourseRepository {\n  CourseRepository(this._api, this._cache);\n\n  final CourseApi _api;\n  final CourseCache _cache;\n\n  Future<List<Course>> courses() async {\n    try {\n      final fresh = await _api.fetchCourses();\n      await _cache.save(fresh);\n      return fresh;\n    } on NetworkException {\n      // Offline: serve the last saved copy.\n      return _cache.read();\n    }\n  }\n}",
+ui:"class CoursesScreen extends StatelessWidget {\n  const CoursesScreen({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return BlocBuilder<CoursesBloc, CoursesState>(\n      builder: (context, state) => switch (state) {\n        CoursesLoading() => const CircularProgressIndicator(),\n        CoursesLoaded(:final items) => CourseList(items: items),\n        CoursesFailure(:final message) => ErrorView(message: message),\n      },\n    );\n  }\n}"
+  };
+  var KW='class|extends|final|const|async|await|try|catch|on|return|switch|sealed|super|this|override|void|Future';
+  var re=new RegExp("(//[^\\n]*)|('[^'\\n]*')|\\b("+KW+")\\b|\\b([A-Z][A-Za-z0-9_]*)\\b",'g');
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+  function hl(s){
+    return esc(s).replace(re,function(m,c,st,k,t){
+      if(c)return '<span class="c">'+c+'</span>';
+      if(st)return '<span class="s">'+st+'</span>';
+      if(k)return '<span class="k">'+k+'</span>';
+      return '<span class="t">'+t+'</span>';
+    });
+  }
+  var codeEl=document.getElementById('code');
+  var tabs=document.querySelectorAll('.tab');
+  function tab(k){
+    tabs.forEach(function(b){b.setAttribute('aria-selected',String(b.dataset.k===k))});
+    codeEl.innerHTML=hl(src[k]);
+  }
+  tabs.forEach(function(b){b.addEventListener('click',function(){tab(b.dataset.k)})});
+  tab('bloc');
+
+  /* active nav link */
+  try{
+    var links={};document.querySelectorAll('.bar nav a').forEach(function(a){links[a.getAttribute('href')]=a});
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          Object.keys(links).forEach(function(h){links[h].classList.toggle('active',h==='#'+e.target.id)});
+        }
+      });
+    },{rootMargin:'-35% 0px -55% 0px'});
+    ['apps','build','experience','skills','contact'].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
+  }catch(e){}
+
+  var root=document.documentElement,tb=document.getElementById('theme');
+  var mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function eff(){return root.getAttribute('data-theme')||(mq.matches?'dark':'light')}
+  function label(){tb.textContent=eff()==='dark'?'Light mode':'Dark mode'}
+  try{var s=localStorage.getItem('theme');if(s==='dark'||s==='light')root.setAttribute('data-theme',s)}catch(e){}
+  label();
+  tb.addEventListener('click',function(){
+    var n=eff()==='dark'?'light':'dark';
+    root.setAttribute('data-theme',n);
+    try{localStorage.setItem('theme',n)}catch(e){}
+    label();
+  });
+})();
+</script>
+
+</body></html>

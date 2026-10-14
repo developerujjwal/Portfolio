@@ -1,516 +1,704 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Ujjwal Sharma, Flutter developer. Three live Play Store apps built with BLoC, MVVM and Clean Architecture.">
 <title>Ujjwal Sharma</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+
+
 <style>
-/* Layout: slim top bar; hero splits into name + a clickable app-architecture stack; later sections use a narrow heading column beside wide content. */
+/* Layout: a mobile developer's portfolio built from mobile parts. The profile is a phone (status bar, widgets, dock), the apps sit in a phone showcase, the contact form is a chat composer, copies confirm with a snackbar. One screen on laptops, one column on phones. Light by default. */
+@property --ga{syntax:'<color>';inherits:true;initial-value:#0A5CFF}
 :root{
-  --bg:#F1F4F8;
+  --bg:#EDF1F8;
   --surface:#FFFFFF;
-  --ink:#0F1A2B;
-  --muted:#52607A;
-  --line:#D5DCE7;
+  --surface2:#F5F8FC;
+  --ink:#0E1A2E;
+  --muted:#56637C;
+  --line:#DAE2EE;
   --accent:#0A5CFF;
   --accent-ink:#FFFFFF;
-  --accent-soft:#E3ECFF;
+  --accent-soft:#E6EEFF;
   --live:#0E7A4B;
-  --live-soft:#DDF3E8;--hl:#9A4A00;
+  --live-soft:#DDF3E8;
+  --err:#D6453D;
+  --blob2:#13B9FD;
+  --hero1:#06257A;
+  --hero2:#0A4FE0;
+  --hero3:#0A6CC4;
+  --hero-ink:#FFFFFF;
+  --hero-soft:rgba(255,255,255,.14);
+  --hero-line:rgba(255,255,255,.38);
+  --bezel:#0A101E;
+  --t1-bg:#E3ECFF;--t1-fg:#0A4FD6;
+  --t2-bg:#D8F2EA;--t2-fg:#0B8A6A;
+  --t3-bg:#FFEACB;--t3-fg:#C97A00;
+  --scr-bg:#F4F7FD;--scr-card:#FFFFFF;--scr-ink:#14213D;--scr-line:#D5DDEC;
+  --scr-a1:#0A5CFF;--scr-a2:#0F9D7A;--scr-a3:#F2A011;
+  --snack-bg:#0E1A2E;--snack-ink:#FFFFFF;
+  --shadow:0 1px 2px rgba(14,26,46,.06),0 10px 28px -14px rgba(14,26,46,.24);
   --display:'Familjen Grotesk','Helvetica Neue',Arial,sans-serif;
   --body:'Hanken Grotesk','Helvetica Neue',Arial,sans-serif;
-  --code:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
-  --gutter:clamp(16px,4vw,48px);
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#0B111B;--surface:#121B29;--ink:#E7EDF6;--muted:#9AA8BF;--line:#243248;
-    --accent:#5C9CFF;--accent-ink:#06101F;--accent-soft:#16264A;--live:#4FD197;--live-soft:#0F2E22;--hl:#F2B86B;
-    color-scheme:dark;
-  }
+  --gutter:clamp(10px,1.6vw,22px);
 }
 :root[data-theme="dark"]{
-  --bg:#0B111B;--surface:#121B29;--ink:#E7EDF6;--muted:#9AA8BF;--line:#243248;
-  --accent:#5C9CFF;--accent-ink:#06101F;--accent-soft:#16264A;--live:#4FD197;--live-soft:#0F2E22;--hl:#F2B86B;
+  --bg:#0A1019;--surface:#121B29;--surface2:#0E1623;--ink:#E7EDF6;--muted:#9AA8BF;--line:#243248;
+  --accent:#5C9CFF;--accent-ink:#06101F;--accent-soft:#16264A;--live:#4FD197;--live-soft:#0F2E22;--blob2:#1597D6;
+  --hero1:#0B1E4D;--hero2:#1740A0;--hero3:#0F5C9E;
+  --t1-bg:#16264A;--t1-fg:#8DB8FF;--t2-bg:#0F2E28;--t2-fg:#5FD6B5;--t3-bg:#38260A;--t3-fg:#F2B86B;
+  --snack-bg:#E7EDF6;--snack-ink:#0A1019;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.6);
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;padding-inline:var(--gutter);padding-block:0 4rem}
+html{font-size:clamp(13.5px,.42vw + 9px,16px)}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.5;padding-inline:var(--gutter);padding-block:var(--gutter);position:relative;overflow-x:hidden}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
 a{color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
-.wrap{max-width:1160px;margin-inline:auto}
-h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0;text-wrap:balance}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+button{font:inherit;color:inherit}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* moving background */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg i{position:absolute;width:52vmax;height:52vmax;border-radius:50%;animation:drift 24s ease-in-out infinite alternate}
+.bg i:nth-child(1){top:-22vmax;left:-14vmax;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 24%,transparent),transparent 62%)}
+.bg i:nth-child(2){bottom:-26vmax;right:-12vmax;background:radial-gradient(circle,color-mix(in srgb,var(--blob2) 22%,transparent),transparent 62%);animation-delay:-9s}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(5vmax,3vmax) scale(1.12)}}
+
+/* shell */
+.shell{position:relative;z-index:1;max-width:1480px;margin-inline:auto;display:flex;flex-direction:column;gap:12px}
+.col{display:contents}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:.8rem 1rem;min-width:0}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(16rem circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--accent) 13%,transparent),transparent 62%);opacity:0;transition:opacity .35s;pointer-events:none}
+.card:hover::before{opacity:1}
+.card>*{position:relative}
+.card>h2{font-family:var(--display);font-size:1.05rem;font-weight:600;letter-spacing:-.005em;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.2rem .8rem;margin-bottom:.55rem}
+.card>h2 small{font-family:var(--body);font-weight:500;font-size:.78rem;color:var(--muted)}
+.o-top{order:0}.o-hero{order:1}.o-apps{order:2}.o-exp{order:3}.o-skills{order:4}.o-contact{order:5}
+
+@media (min-width:1100px){
+  .shell{display:grid;grid-template-columns:minmax(280px,340px) minmax(0,1.12fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);min-height:calc(100vh - 2*var(--gutter));min-height:calc(100dvh - 2*var(--gutter))}
+  .col{display:flex;flex-direction:column;gap:12px;min-width:0}
+  .o-top,.o-hero,.o-apps,.o-exp,.o-skills,.o-contact{order:0}
+  .top{grid-column:1/-1}
+  .c-apps{flex:1 1 auto;display:flex;flex-direction:column}
+  .c-exp{flex:1 1 auto}
+  .c-skills{flex:0 0 auto}
+  .c-contact{flex:0 0 auto}
+}
+
+/* entrance: cards arrive from their own side and come into focus */
+.rise{animation:rise .75s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--i,0) * 90ms)}
+@keyframes rise{from{opacity:0;transform:translate(var(--dx,0px),var(--dy,18px)) scale(.96);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+@media (max-width:1099px){.rise{--dx:0px!important}}
 
 /* top bar */
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter)}
-.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.7rem}
-.bar strong{font-family:var(--display);font-size:1.1rem;font-weight:700}
-.bar nav{display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap}
-.bar nav a{text-decoration:none;color:var(--muted);font-size:.95rem;font-weight:500}
-.bar nav a:hover{color:var(--ink)}
-.theme{font:inherit;font-size:.85rem;font-weight:500;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:.3rem .8rem;cursor:pointer}
-.theme:hover{border-color:var(--accent)}
-@media (max-width:640px){.bar nav a{display:none}}
+.top{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem .8rem;padding:.35rem .45rem;border-radius:999px;background:color-mix(in srgb,var(--surface) 82%,transparent);border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(10px)}
+.status{display:inline-flex;align-items:center;gap:.5rem;background:var(--live-soft);color:var(--live);border-radius:999px;padding:.28rem .85rem .28rem .7rem;font-size:.8rem;font-weight:600}
+.status i{width:.55rem;height:.55rem;border-radius:50%;background:currentColor;box-shadow:0 0 0 0 currentColor;animation:ping 2.2s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 currentColor}70%,100%{box-shadow:0 0 0 .55rem transparent}}
+.loc{font-size:.82rem;color:var(--muted)}
+.hot{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--display);font-size:.78rem;font-weight:600;color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:.2rem .65rem;transition:background .3s,color .3s,border-color .3s}
+.hot svg{color:#F2A011}
+.hot.zap{background:var(--accent-soft);color:var(--accent);border-color:var(--accent);animation:zap .9s ease-out}
+@keyframes zap{0%{transform:scale(1)}30%{transform:scale(1.08)}100%{transform:scale(1)}}
+.topact{margin-left:auto;display:flex;align-items:center;gap:.5rem}
+.msgbtn{display:inline-flex;align-items:center;gap:.45rem;font-size:.84rem;font-weight:600;background:var(--accent);color:var(--accent-ink);border:0;border-radius:999px;padding:.38rem .95rem;cursor:pointer;transition:transform .2s,filter .2s}
+.msgbtn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.switch{position:relative;flex:none;width:3rem;height:1.65rem;border-radius:999px;border:1px solid var(--line);background:var(--accent-soft);cursor:pointer;padding:0}
+.knob{position:absolute;top:2px;left:2px;width:calc(1.65rem - 6px);height:calc(1.65rem - 6px);border-radius:50%;background:var(--surface);color:var(--accent);display:grid;place-items:center;box-shadow:0 1px 4px rgba(14,26,46,.3);transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.switch[aria-checked="true"] .knob{transform:translateX(1.35rem)}
+.switch .moon{display:none}
+.switch[aria-checked="true"] .moon{display:block}
+.switch[aria-checked="true"] .sun{display:none}
+@media (max-width:700px){.loc,.hot{display:none}}
 
-/* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(2rem,5vw,4.5rem);padding-block:clamp(2.5rem,7vw,5.5rem) clamp(2.5rem,6vw,4.5rem);align-items:start}
-.hero-main{min-width:0}
-.hero h1{font-size:clamp(3.1rem,9.5vw,7rem);font-weight:700;letter-spacing:-.035em}
-.role{font-family:var(--display);font-size:clamp(1.25rem,2.4vw,1.7rem);font-weight:500;margin:1.2rem 0 0;max-width:22ch;line-height:1.2}
-.lede{color:var(--muted);max-width:48ch;margin:1.1rem 0 0}
-.actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem}
-.btn{display:inline-flex;align-items:center;gap:.5rem;font:inherit;font-weight:600;font-size:.98rem;text-decoration:none;padding:.7rem 1.15rem;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
-.btn:hover{border-color:var(--accent)}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.btn.primary:hover{filter:brightness(1.06)}
-.facts{display:flex;flex-wrap:wrap;gap:1.8rem;margin:2.2rem 0 0;padding:0;list-style:none}
-.facts li{display:flex;flex-direction:column;min-width:0}
-.facts b{font-family:var(--display);font-size:1.5rem;line-height:1.1}
-.facts span{color:var(--muted);font-size:.9rem}
+/* profile: a phone */
+.hero{background:linear-gradient(158deg,var(--hero1) 0%,var(--hero2) 52%,var(--hero3) 100%);background-size:220% 220%;background-clip:padding-box;color:var(--hero-ink);border:.42rem solid var(--bezel);border-radius:2.3rem;box-shadow:0 0 0 1px rgba(255,255,255,.14),var(--shadow);display:flex;flex-direction:column;overflow:hidden;padding:.55rem .95rem .6rem}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.14),transparent 36%);pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.hero.rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) backwards,flow 14s ease-in-out infinite alternate;animation-delay:calc(var(--i,0) * 90ms),0s}
+@keyframes flow{from{background-position:0% 0%}to{background-position:100% 100%}}
+.hero::before{background:radial-gradient(14rem circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.22),transparent 62%)}
+.sbar{display:flex;justify-content:space-between;align-items:center;font-size:.74rem;font-weight:600;padding:.05rem .35rem 0;min-height:1.4rem}
+.sbar .ic{display:flex;align-items:center;gap:.3rem}
+.hero>.island{position:absolute;top:.5rem;left:50%;width:4.6rem;height:1.2rem;margin-left:-2.3rem;border-radius:99px;background:var(--bezel)}
+.hero-top{display:flex;align-items:center;gap:.8rem;margin:.75rem 0 .7rem}
+.avatar::before{content:"";position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(from 0deg,rgba(255,255,255,.95),rgba(255,255,255,0) 35%,#7CF2B0 60%,rgba(255,255,255,0) 85%,rgba(255,255,255,.95));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 2px));animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.avatar{position:relative;width:2.9rem;height:2.9rem;border-radius:50%;background:var(--hero-soft);border:1px solid var(--hero-line);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:.02em}
+.hi{font-family:var(--display);font-weight:500;font-size:1.05rem;opacity:.9}
+.hero h1{font-family:var(--display);font-size:2.1rem;font-weight:700;letter-spacing:-.03em;line-height:1.05;overflow:hidden;padding-bottom:.22em;margin-bottom:-.22em}
+.ch{display:inline-block;animation:letter .85s cubic-bezier(.2,.9,.25,1) backwards;animation-delay:calc(.35s + var(--k,0) * 55ms)}
+@keyframes letter{from{transform:translateY(115%) rotate(7deg);opacity:0}to{transform:none;opacity:1}}
+.role{font-family:var(--display);font-size:1.08rem;font-weight:500;margin-top:.3rem}
+.type{font-size:.93rem;margin-top:.25rem;min-height:1.5em;opacity:.95}
+.type b{font-weight:600}
+.caret{display:inline-block;width:2px;height:1.05em;background:currentColor;margin-left:2px;vertical-align:-.15em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.sum{font-size:.9rem;line-height:1.45;opacity:.92;margin-top:.6rem}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem;margin-top:.8rem}
+.stats li{background:var(--hero-soft);border-radius:12px;padding:.5rem .6rem;min-width:0}
+.stats b{display:block;font-family:var(--display);font-size:1.35rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.stats span.l{display:block;font-size:.7rem;line-height:1.25;opacity:.9;margin-top:.1rem}
+.widgets{margin-top:auto;padding-top:.8rem;display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.wg{background:var(--hero-soft);border-radius:14px;padding:.5rem .6rem;min-width:0}
+.wg b{display:block;font-family:var(--display);font-size:.8rem;margin-bottom:.2rem}
+.wg span{display:block;font-size:.7rem;line-height:1.3;opacity:.92}
+.wg span+span{margin-top:.15rem}
+.dock{margin-top:.7rem;background:var(--hero-soft);border-radius:1.4rem;padding:.5rem .35rem .4rem;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.2rem}
+.dk{all:unset;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:.2rem;cursor:pointer;text-align:center}
+.dk:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:12px}
+.dk .ico{width:2.45rem;height:2.45rem;border-radius:.85rem;background:rgba(255,255,255,.22);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:.95rem;transition:transform .25s cubic-bezier(.3,1.5,.5,1),background .2s}
+.dk:hover .ico{transform:translateY(-4px) scale(1.12);background:rgba(255,255,255,.34)}
+.dk .lb{font-size:.62rem;opacity:.92}
+.home{align-self:center;width:34%;height:4px;border-radius:99px;background:rgba(255,255,255,.7);margin-top:.6rem}
 
-/* architecture stack */
-.stack{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.2rem}
-.stack h2{font-size:1.15rem;font-weight:600}
-.stack p.hint{color:var(--muted);font-size:.9rem;margin:.3rem 0 1rem}
-.layers{display:flex;flex-direction:column;gap:.5rem;padding:0;margin:0;list-style:none}
-.layer{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:.7rem .9rem;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;animation:rise .5s ease backwards}
-.layer:nth-child(2){animation-delay:.08s}.layer:nth-child(3){animation-delay:.16s}.layer:nth-child(4){animation-delay:.24s}
-.layer b{font-family:var(--display);font-size:1.05rem;font-weight:600}
-.layer code{font-family:var(--code);font-size:.78rem;color:var(--muted)}
-.layer:hover{border-color:var(--accent)}
-.layer[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.layer[aria-pressed="true"] code{color:inherit;opacity:.85}
-.flow{display:flex;justify-content:center;color:var(--muted);font-family:var(--code);font-size:.72rem;line-height:1;padding:.05rem 0}
-.detail{margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--line);min-height:8.5rem}
-.detail p{margin:0 0 .8rem}
-.tags{display:flex;flex-wrap:wrap;gap:.4rem;padding:0;margin:0;list-style:none}
-.tags li{font-size:.84rem;font-weight:500;background:var(--accent-soft);color:var(--ink);padding:.2rem .6rem;border-radius:6px}
-@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@media (max-width:900px){.hero{grid-template-columns:minmax(0,1fr)}}
+/* app showcase */
+.showcase{display:grid;grid-template-columns:minmax(8.2rem,10rem) minmax(0,1fr);gap:.8rem;flex:1;min-height:0}
+.stage{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;padding:.7rem .4rem;border-radius:12px;border:1px solid var(--line);overflow:hidden;--ga:#0A5CFF;background:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--ga) 22%,transparent),transparent 68%),var(--surface2);transition:--ga .6s}
+.stage::before{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--line) 1px,transparent 1.3px);background-size:14px 14px;-webkit-mask-image:radial-gradient(circle at 50% 50%,#000,transparent 75%);mask-image:radial-gradient(circle at 50% 50%,#000,transparent 75%)}
+.phone,.cap{position:relative;z-index:1}
+.phone{width:min(8.6rem,88%);aspect-ratio:9/18.6;border-radius:1.55rem;background:linear-gradient(145deg,#2B3550,#0A101E);padding:.32rem;box-shadow:0 26px 40px -18px rgba(8,20,60,.6),inset 0 0 0 1px rgba(255,255,255,.14);transform:perspective(900px) rotateX(var(--px,0deg)) rotateY(var(--py,0deg));transition:transform .2s ease-out;animation:hover 6s ease-in-out infinite alternate}
+@keyframes hover{from{translate:0 -5px}to{translate:0 6px}}
+.screen{position:relative;width:100%;height:100%;border-radius:1.25rem;overflow:hidden;background:var(--scr-bg)}
+.screen::after{content:"";position:absolute;top:.4rem;left:50%;width:.5rem;height:.5rem;margin-left:-.25rem;border-radius:50%;background:#0A101E;z-index:3}
+.cap{font-size:.66rem;color:var(--muted)}
+.scr{position:absolute;inset:0;padding:1.45rem .55rem .5rem;display:flex;flex-direction:column;gap:.4rem;background:var(--scr-bg);color:var(--scr-ink);font-size:.6rem;opacity:0;transform:translateX(18px) scale(.98);transition:opacity .45s,transform .45s;pointer-events:none}
+.scr.on{opacity:1;transform:none}
+.ab{display:flex;justify-content:space-between;align-items:center;font-family:var(--display);font-size:.78rem}
+.av{width:1.1rem;height:1.1rem;border-radius:50%;background:var(--a)}
+.sk{display:block;height:.34rem;border-radius:99px;background:var(--scr-line)}
+.sk.lt{background:rgba(255,255,255,.75)}
+.w40{width:40%}.w50{width:50%}.w55{width:55%}.w60{width:60%}.w65{width:65%}.w70{width:70%}.w80{width:80%}
+.pbar{height:.3rem;border-radius:99px;background:color-mix(in srgb,var(--a) 18%,#fff);overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--a);border-radius:inherit;transition:width 1s .3s cubic-bezier(.2,.8,.2,1)}
+.scr.on .pbar i{width:var(--w,50%)}
+.banner{background:var(--a);border-radius:.55rem;padding:.55rem;display:flex;flex-direction:column;gap:.3rem}
+.banner .pbar{background:rgba(255,255,255,.3)}
+.banner .pbar i{background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+.mini{background:var(--scr-card);border-radius:.5rem;padding:.4rem;display:flex;flex-direction:column;gap:.3rem}
+.ic2{display:block;width:.9rem;height:.9rem;border-radius:.3rem;background:color-mix(in srgb,var(--a) 28%,#fff)}
+.row{display:flex;align-items:center;gap:.4rem;background:var(--scr-card);border-radius:.45rem;padding:.38rem .45rem}
+.ck{flex:none;width:.7rem;height:.7rem;border-radius:50%;background:var(--a)}
+.ck.off{background:transparent;border:1.5px solid var(--scr-line)}
+.map{aspect-ratio:100/56;border-radius:.55rem;overflow:hidden;background:#E6F5EF}
+.map svg{display:block;width:100%;height:100%}
+.map .gr{stroke:#0F9D7A;stroke-opacity:.18;stroke-width:.6;fill:none}
+.map .rt{stroke:var(--a);stroke-width:1.6;stroke-dasharray:3 2.5;stroke-linecap:round;fill:none}
+.map .p1{fill:var(--a)}
+.map .p2{fill:#fff;stroke:var(--a);stroke-width:1.6}
+.card2{background:var(--scr-card);border-radius:.5rem;padding:.45rem;display:flex;flex-direction:column;gap:.35rem}
+.chip{align-self:flex-start;font-size:.52rem;font-weight:700;color:var(--a);background:color-mix(in srgb,var(--a) 14%,#fff);padding:.08rem .45rem;border-radius:99px}
+.dots{display:flex;justify-content:space-between}
+.dots i{width:.5rem;height:.5rem;border-radius:50%;background:var(--scr-line)}
+.dots i.on{background:var(--a)}
+.bars{display:flex;align-items:flex-end;gap:.35rem;height:3.1rem;background:var(--scr-card);border-radius:.5rem;padding:.4rem}
+.bars i{flex:1;height:0;border-radius:.2rem .2rem 0 0;background:color-mix(in srgb,var(--a) 70%,#fff);transition:height .8s .3s cubic-bezier(.2,.8,.2,1)}
+.scr.on .bars i{height:var(--h)}
+.face{flex:none;width:1rem;height:1rem;border-radius:50%}
+.c1{background:#F7B6A5}.c2{background:#B6D4F7}.c3{background:#C7F0C1}.c4{background:#F3D59A}
+.kid .sk{flex:0 0 52%}
+.st{flex:none;width:.45rem;height:.45rem;border-radius:50%;margin-left:auto;background:#34C27B}
+.st.warn{background:#F2A011}
 
-/* sections */
-section.block{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:clamp(1rem,4vw,3.5rem);padding-block:clamp(2rem,5vw,3.5rem);border-top:1px solid var(--line)}
-section.block>h2{font-size:1.6rem;font-weight:600;letter-spacing:-.01em;position:sticky;top:calc(4.2rem + env(safe-area-inset-top,0px));align-self:start}
-@media (max-width:760px){section.block{grid-template-columns:minmax(0,1fr)}section.block>h2{position:static}}
-.content{min-width:0}
-
-/* apps */
-.apps{display:flex;flex-direction:column}
-.app{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem 2rem;padding-block:1.6rem;border-bottom:1px solid var(--line)}
-.app:first-child{padding-top:0}
-.app:last-child{border-bottom:0;padding-bottom:0}
-.app h3{font-size:clamp(1.5rem,3vw,2rem);font-weight:700;letter-spacing:-.02em}
-.pkg{font-family:var(--code);font-size:.8rem;color:var(--muted);margin:.35rem 0 0;overflow-wrap:anywhere}
-.app ul.points{margin:.9rem 0 .9rem;padding-left:1.1rem;max-width:62ch}
-.app ul.points li{margin-bottom:.35rem}
-.live{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:600;color:var(--live);background:var(--live-soft);padding:.2rem .65rem;border-radius:999px;height:fit-content;white-space:nowrap}
-.live::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--live)}
-.app .side{display:flex;flex-direction:column;align-items:flex-end;gap:.8rem}
-@media (max-width:640px){.app{grid-template-columns:minmax(0,1fr)}.app .side{align-items:flex-start;flex-direction:row;flex-wrap:wrap;order:-1}}
+.alist{display:flex;flex-direction:column;justify-content:center;gap:.5rem;min-width:0}
+.aitem{position:relative;background:var(--surface2);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:border-color .25s,background .25s,box-shadow .25s}
+.aitem.on{background:var(--surface);border-color:var(--accent);box-shadow:var(--shadow)}
+.ahead{all:unset;box-sizing:border-box;display:grid;grid-template-columns:auto minmax(0,1fr);gap:.7rem;align-items:center;width:100%;padding:.55rem .7rem;cursor:pointer}
+.ahead:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.tile{width:2.4rem;height:2.4rem;border-radius:11px;background:var(--tile-bg);color:var(--tile-fg);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:1.2rem;animation:bob 4s ease-in-out infinite alternate;animation-delay:calc(var(--i,0) * -.7s)}
+@keyframes bob{from{translate:0 -2px}to{translate:0 2px}}
+.nm{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-family:var(--display);font-size:1rem;font-weight:600}
+.ds{display:block;font-size:.8rem;color:var(--muted);line-height:1.36;margin-top:.05rem}
+.live{display:inline-flex;align-items:center;gap:.3rem;font-family:var(--body);font-size:.66rem;font-weight:600;color:var(--live);background:var(--live-soft);padding:.05rem .5rem;border-radius:999px}
+.live::before{content:"";width:.38rem;height:.38rem;border-radius:50%;background:var(--live)}
+.abody{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.3,.7,.2,1)}
+.aitem.on .abody{grid-template-rows:1fr}
+.abody-in{min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:.45rem;padding:0 .7rem}
+.aitem.on .abody-in{padding-bottom:.7rem}
+.tags{display:flex;flex-wrap:wrap;gap:.3rem}
+.tags li{font-size:.72rem;font-weight:500;background:var(--accent-soft);padding:.08rem .5rem;border-radius:5px;transition:background .15s,color .15s,transform .15s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;background:var(--accent);color:var(--accent-ink);text-decoration:none;font-weight:600;font-size:.82rem;padding:.45rem .85rem;border-radius:10px;white-space:nowrap;position:relative;overflow:hidden;transition:transform .2s,filter .2s}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%);transform:translateX(-130%);animation:shine 4.5s ease-in-out infinite;animation-delay:1.2s;pointer-events:none}
+@keyframes shine{0%,55%{transform:translateX(-130%)}100%{transform:translateX(130%)}}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn svg{transition:transform .2s}
+.btn:hover svg{transform:translate(2px,-2px)}
+.aprog{position:absolute;left:0;right:0;bottom:0;height:3px}
+.aprog i{display:block;height:100%;background:var(--accent);transform:scaleX(0);transform-origin:left}
+.aitem.on .aprog.run i{animation:fill 3.6s linear forwards}
+.showcase.paused .aprog.run i{animation-play-state:paused}
+@keyframes fill{to{transform:scaleX(1)}}
+@media (max-width:640px){.showcase{grid-template-columns:minmax(0,1fr)}.stage{padding:1.1rem .4rem}}
 
 /* experience */
-.job-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.3rem 1.5rem}
-.job-head h3{font-size:1.5rem;font-weight:700}
-.job-head .when{font-family:var(--code);font-size:.85rem;color:var(--muted);padding-top:.35rem}
-.company{color:var(--muted);margin:.2rem 0 1rem}
-.job ul{margin:0;padding-left:1.1rem;max-width:68ch}
-.job li{margin-bottom:.55rem}
+.exp ul{display:flex;flex-direction:column;gap:.38rem;padding-left:1.05rem;list-style:disc}
+.exp li{font-size:.85rem;line-height:1.4;padding-left:.15rem;animation:wipe .75s cubic-bezier(.3,.7,.2,1) backwards;animation-delay:calc(.9s + var(--k,0) * .14s)}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0);opacity:.3}to{clip-path:inset(0 0 0 0);opacity:1}}
+.exp li::marker{color:var(--accent)}
+.exp .co{color:var(--muted);font-size:.84rem;margin:-.35rem 0 .55rem}
 
 /* skills */
-.skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.8rem 2.5rem;margin:0}
-.skills div{min-width:0}
-.skills dt{font-family:var(--display);font-weight:600;font-size:1.05rem;margin-bottom:.5rem}
-.skills dd{margin:0}
-@media (max-width:640px){.skills{grid-template-columns:minmax(0,1fr)}}
+.srow{display:grid;grid-template-columns:5.2rem minmax(0,1fr);gap:.5rem;align-items:start;padding-block:.3rem;border-top:1px solid var(--line)}
+.srow:first-of-type{border-top:0;padding-top:0}
+.sk2{font-family:var(--display);font-weight:600;font-size:.82rem;padding-top:.05rem}
+.skills .tags{gap:.25rem}
+.skills .tags li{font-size:.72rem;padding:.05rem .42rem;cursor:default;animation:pop .5s cubic-bezier(.3,1.6,.5,1) backwards;animation-delay:calc(1s + var(--k,0) * 26ms)}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.skills .tags li:hover{background:var(--accent);color:var(--accent-ink);transform:translateY(-1px)}
+@media (max-width:420px){.srow{grid-template-columns:minmax(0,1fr)}}
 
-/* education */
-.edu{display:flex;flex-direction:column;gap:1rem;margin:0 0 2rem;padding:0;list-style:none}
-.edu li{display:flex;justify-content:space-between;gap:.3rem 2rem;flex-wrap:wrap}
-.edu b{font-family:var(--display);font-weight:600;font-size:1.15rem}
-.edu span{color:var(--muted)}
-.edu .yr{font-family:var(--code);font-size:.85rem}
-.wins h3{font-size:1.1rem;font-weight:600;margin-bottom:.6rem}
-.wins ul{margin:0;padding-left:1.1rem}
-.wins li{margin-bottom:.3rem}
+/* contact: a chat composer */
+.cform{overflow:hidden}
+.cform form{display:flex;flex-direction:column;gap:.45rem}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.fld{display:block;min-width:0}
+.fld input,.fld textarea{font:inherit;font-size:.88rem;color:var(--ink);background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:.42rem .7rem;width:100%;display:block;resize:none;transition:border-color .2s,box-shadow .2s}
+.fld input::placeholder,.fld textarea::placeholder{color:var(--muted)}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.fld.bad input,.fld.bad textarea{border-color:var(--err)}
+.compose{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.5rem;align-items:end}
+.sendbtn{width:2.9rem;height:2.9rem;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 16px -8px var(--accent);transition:transform .25s cubic-bezier(.3,1.5,.5,1),filter .2s}
+.sendbtn:hover{transform:translateY(-2px) rotate(-10deg);filter:brightness(1.08)}
+.ferr{font-size:.74rem;color:var(--err);min-height:0}
+.cform>.ov{position:absolute;inset:0;z-index:3;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;text-align:center;padding:.8rem 1rem;opacity:0;pointer-events:none;transform:scale(.985);transition:opacity .3s,transform .3s}
+.cform[data-state="sending"]>.ov-send,.cform[data-state="sent"]>.ov-sent,.cform[data-state="fallback"]>.ov-fall{opacity:1;pointer-events:auto;transform:none}
+.ov h3{font-family:var(--display);font-size:1.05rem;font-weight:600}
+.ov p{font-size:.84rem;color:var(--muted);max-width:34ch}
+.ov .acts{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center}
+.ghost{font-size:.82rem;font-weight:600;background:transparent;border:1px solid var(--line);border-radius:10px;padding:.42rem .8rem;cursor:pointer;color:var(--ink);text-decoration:none}
+.ghost:hover{border-color:var(--accent)}
+.spin{width:1.6rem;height:1.6rem;border-radius:50%;border:3px solid var(--accent-soft);border-top-color:var(--accent);animation:spin 800ms linear infinite}
+.okc{width:3rem;height:3rem}
+.okc circle{fill:none;stroke:var(--live);stroke-width:3;stroke-dasharray:140;stroke-dashoffset:140}
+.okc path{fill:none;stroke:var(--live);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40}
+.cform[data-state="sent"] .okc circle{animation:draw .6s ease forwards}
+.cform[data-state="sent"] .okc path{animation:draw .4s .45s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
 
-/* contact */
-.contact h3{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.025em;max-width:18ch}
-.rows{margin:1.6rem 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
-.rows li{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.9rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.rows .k{color:var(--muted);font-size:.9rem;min-width:5.5rem}
-.rows .v{font-family:var(--code);font-size:.95rem;overflow-wrap:anywhere;min-width:0;flex:1}
-.rows a.v{text-decoration:none}
-.rows a.v:hover{color:var(--accent)}
-.copy{font:inherit;font-size:.82rem;font-weight:600;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:.3rem .75rem;cursor:pointer}
-.copy:hover{border-color:var(--accent)}
-footer{margin-top:3rem;color:var(--muted);font-size:.88rem}
-/* status, nav state */
-.status{display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:600;color:var(--live);background:var(--live-soft);padding:.25rem .8rem;border-radius:999px;margin-bottom:1.3rem}
-.status::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--live)}
-.bar nav a.active{color:var(--ink);box-shadow:0 2px 0 var(--accent)}
+/* snackbar */
+.snack{position:fixed;left:50%;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));z-index:30;background:var(--snack-bg);color:var(--snack-ink);padding:.6rem 1.1rem;border-radius:12px;font-size:.86rem;font-weight:500;max-width:min(92vw,28rem);box-shadow:0 14px 30px -12px rgba(0,0,0,.5);opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,calc(100% + 3rem));transition:transform .4s cubic-bezier(.3,1.3,.5,1),opacity .25s,visibility 0s .4s}
+.snack.show{opacity:1;visibility:visible;transform:translate(-50%,0);transition:transform .4s cubic-bezier(.3,1.3,.5,1),opacity .25s,visibility 0s}
 
-/* how I build */
-.build{display:flex;flex-direction:column;gap:3rem}
-.build h3{font-size:1.4rem;font-weight:600;margin-bottom:.4rem;letter-spacing:-.01em}
-.build .sub{color:var(--muted);margin:0 0 1.1rem;max-width:62ch}
-.flowbox,.codebox{border:1px solid var(--line);border-radius:12px;background:var(--surface)}
-.flowbox{padding:1.1rem}
-.switch{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;margin-bottom:1rem;background:var(--bg)}
-.switch button{font:inherit;font-size:.88rem;font-weight:600;border:0;background:transparent;color:var(--muted);padding:.35rem .95rem;border-radius:999px;cursor:pointer}
-.switch button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
-.nodes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.5rem}
-.node{border:1px solid var(--line);border-radius:10px;padding:.65rem .5rem;text-align:center;background:var(--bg);color:var(--muted);transition:background .25s,border-color .25s,color .25s}
-.node b{display:block;font-family:var(--display);font-size:.98rem;color:inherit}
-.node small{font-size:.76rem}
-.node.hit{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
-.node.miss{border-style:dashed}
-.flownote{margin:1rem 0 0;color:var(--muted);min-height:3.2rem}
-@media (max-width:760px){.nodes{grid-template-columns:minmax(0,1fr)}}
-
-.codebox{overflow:hidden}
-.tabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto}
-.tab{font-family:var(--code);font-size:.82rem;background:transparent;color:var(--muted);border:0;border-right:1px solid var(--line);padding:.65rem 1.1rem;cursor:pointer;white-space:nowrap}
-.tab:hover{color:var(--ink)}
-.tab[aria-selected="true"]{color:var(--ink);background:var(--bg);box-shadow:inset 0 -2px 0 var(--accent)}
-pre.code{margin:0;padding:1rem 1.1rem;overflow-x:auto;font-family:var(--code);font-size:.84rem;line-height:1.7;color:var(--ink);tab-size:2}
-.code .k{color:var(--accent);font-weight:500}
-.code .s{color:var(--live)}
-.code .c{color:var(--muted);font-style:italic}
-.code .t{color:var(--hl)}
-
-.pipe{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.6rem;padding:0;margin:0;list-style:none}
-.pipe li{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:0 0 10px 10px;padding:.75rem .85rem;min-width:0}
-.pipe b{display:block;font-family:var(--display);font-size:1.05rem;margin-bottom:.2rem}
-.pipe span{color:var(--muted);font-size:.9rem;line-height:1.45;display:block}
-@media (max-width:900px){.pipe{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:480px){.pipe{grid-template-columns:minmax(0,1fr)}}
-
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 
-<header class="bar">
-  <div class="wrap">
-    <strong>Ujjwal Sharma</strong>
-    <nav aria-label="Sections">
-      <a href="#apps">Apps</a>
-      <a href="#build">How I build</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-      <button class="theme" id="theme" type="button" aria-label="Switch colour theme">Theme</button>
-    </nav>
+<div class="bg" aria-hidden="true"><i></i><i></i></div>
+
+<main class="shell">
+  <header class="top rise o-top" style="--i:0;--dy:-22px">
+    <span class="status"><i></i>Open to Flutter roles</span>
+    <span class="loc">Gurugram, India</span>
+    <span class="hot" id="hot" title="Try the switch"><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M13 2 5 13h6l-1 9 8-12h-6l1-8Z" fill="currentColor"/></svg><span id="hottxt">Hot reload</span></span>
+    <div class="topact">
+      <button class="msgbtn" id="msgbtn" type="button"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M3 11.5 21 3l-6.5 18-3-7.5L3 11.5Z" fill="currentColor"/></svg>Message me</button>
+      <button class="switch" id="theme" type="button" role="switch" aria-checked="false" aria-label="Switch to dark mode">
+        <span class="knob">
+          <svg class="sun" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="currentColor"/></svg>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <section class="card hero rise o-hero" style="--i:1;--dx:-30px;--dy:0px" aria-label="Profile">
+    <i class="island" aria-hidden="true"></i>
+    <div class="sbar" aria-hidden="true">
+      <span id="clock">9:41</span>
+      <span class="ic">
+        <svg viewBox="0 0 18 12" width="16" height="11"><rect x="0" y="8" width="3" height="4" rx=".8" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx=".8" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx=".8" fill="currentColor"/></svg>
+        <svg viewBox="0 0 16 12" width="15" height="11"><path d="M1 4.2a10 10 0 0 1 14 0M3.5 6.9a6.4 6.4 0 0 1 9 0M6 9.5a2.8 2.8 0 0 1 4 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11" r="1" fill="currentColor"/></svg>
+        <svg viewBox="0 0 26 12" width="24" height="11"><rect x=".5" y=".5" width="21" height="11" rx="3" fill="none" stroke="currentColor" opacity=".6"/><rect x="2" y="2" width="15" height="8" rx="1.8" fill="currentColor"/><rect x="23" y="4" width="2" height="4" rx="1" fill="currentColor" opacity=".6"/></svg>
+      </span>
+    </div>
+    <div class="hero-top"><span class="avatar" aria-hidden="true">US</span><span class="hi">Hi, I'm</span></div>
+    <h1>Ujjwal Sharma</h1>
+    <p class="role">Flutter Developer</p>
+    <p class="type">Building with <b id="typed">BLoC and MVVM</b><i class="caret" aria-hidden="true"></i></p>
+    <p class="sum">Production Flutter apps on the Play Store, built with BLoC, MVVM, Clean Architecture, Firebase and offline-first storage.</p>
+    <ul class="stats">
+      <li><b><span data-n="3">3</span></b><span class="l">Play Store apps</span></li>
+      <li><b><span data-n="1" data-s="+">1+</span></b><span class="l">year in production</span></li>
+      <li><b><span data-n="1">1</span></b><span class="l">client in Japan</span></li>
+    </ul>
+    <div class="widgets">
+      <div class="wg"><b>Education</b><span>MCA, 2023 to 2025<br>Gurugram University</span><span>BCA, 2020 to 2023<br>SGT University</span></div>
+      <div class="wg"><b>Awards</b><span>1st, Creative Minds</span><span>1st, Synergy 2022</span><span>3rd, Ideathon</span></div>
+    </div>
+    <div class="dock">
+      <button class="dk" type="button" data-copy="developer.ujjwalsharma@gmail.com" data-msg="Email copied" aria-label="Copy email address">
+        <span class="ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 8 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lb">Email</span>
+      </button>
+      <button class="dk" type="button" data-copy="+91 8527038960" data-msg="Number copied" aria-label="Copy phone number">
+        <span class="ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.3a11 11 0 0 0 5.2 5.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><span class="lb">Call</span>
+      </button>
+      <a class="dk" href="https://linkedin.com/in/developerujjwalsharma" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+        <span class="ico">in</span><span class="lb">LinkedIn</span>
+      </a>
+      <a class="dk" href="https://github.com/developerujjwal" target="_blank" rel="noopener" aria-label="GitHub profile">
+        <span class="ico"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><circle cx="6" cy="6" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="18" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="9" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 8.2v7.6M18 11.2c0 4-6 2.5-12 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="lb">GitHub</span>
+      </a>
+    </div>
+    <i class="home" aria-hidden="true"></i>
+  </section>
+
+  <div class="col">
+    <section class="card c-apps rise o-apps" style="--i:2;--dy:26px" aria-label="Apps">
+      <h2>Live on the Play Store <small>3 apps, all in Flutter</small></h2>
+      <div class="showcase" id="showcase">
+        <div class="stage" id="stage">
+          <div class="phone" id="phone" aria-hidden="true">
+            <div class="screen">
+              <div class="scr on" style="--a:var(--scr-a1)">
+                <div class="ab"><b>Courses</b><i class="av"></i></div>
+                <div class="banner"><span class="sk lt w60"></span><span class="sk lt w40"></span><div class="pbar"><i style="--w:62%"></i></div></div>
+                <div class="grid2">
+                  <div class="mini"><i class="ic2"></i><span class="sk w80"></span><div class="pbar"><i style="--w:80%"></i></div></div>
+                  <div class="mini"><i class="ic2"></i><span class="sk w70"></span><div class="pbar"><i style="--w:35%"></i></div></div>
+                </div>
+                <div class="row"><i class="ck"></i><span class="sk w70"></span></div>
+                <div class="row"><i class="ck"></i><span class="sk w55"></span></div>
+                <div class="row"><i class="ck off"></i><span class="sk w65"></span></div>
+              </div>
+              <div class="scr" style="--a:var(--scr-a2)">
+                <div class="ab"><b>Shipments</b><i class="av"></i></div>
+                <div class="map">
+                  <svg viewBox="0 0 100 56">
+                    <path class="gr" d="M0 14H100M0 28H100M0 42H100M20 0V56M50 0V56M80 0V56"/>
+                    <path class="rt" d="M10 46C30 46 30 14 52 22S78 8 90 10"/>
+                    <circle class="p1" cx="10" cy="46" r="3"/>
+                    <circle class="p2" cx="90" cy="10" r="3.4"/>
+                    <circle class="p1" r="2.6"><animateMotion dur="3.4s" repeatCount="indefinite" path="M10 46C30 46 30 14 52 22S78 8 90 10"/></circle>
+                  </svg>
+                </div>
+                <div class="card2"><span class="chip">In transit</span><div class="pbar"><i style="--w:66%"></i></div><div class="dots"><i class="on"></i><i class="on"></i><i></i></div></div>
+                <div class="row"><i class="ic2"></i><span class="sk w70"></span></div>
+                <div class="row"><i class="ic2"></i><span class="sk w50"></span></div>
+              </div>
+              <div class="scr" style="--a:var(--scr-a3)">
+                <div class="ab"><b>Children</b><i class="av"></i></div>
+                <div class="bars"><i style="--h:40%"></i><i style="--h:70%"></i><i style="--h:55%"></i><i style="--h:88%"></i><i style="--h:62%"></i></div>
+                <div class="row kid"><i class="face c1"></i><span class="sk"></span><i class="st"></i></div>
+                <div class="row kid"><i class="face c2"></i><span class="sk"></span><i class="st"></i></div>
+                <div class="row kid"><i class="face c3"></i><span class="sk"></span><i class="st warn"></i></div>
+                <div class="row kid"><i class="face c4"></i><span class="sk"></span><i class="st"></i></div>
+              </div>
+            </div>
+          </div>
+          <p class="cap">Illustrative preview</p>
+        </div>
+
+        <div class="alist" id="alist">
+          <article class="aitem on" style="--i:0;--tile-bg:var(--t1-bg);--tile-fg:var(--t1-fg)">
+            <button class="ahead" type="button" aria-expanded="true">
+              <span class="tile" aria-hidden="true">Q</span>
+              <span><span class="nm">Quest App <span class="live">Live</span></span><span class="ds">Vocational training platform on mobile and web from one codebase.</span></span>
+            </button>
+            <div class="abody"><div class="abody-in">
+              <ul class="tags"><li>BLoC</li><li>MVVM</li><li>Clean Architecture</li></ul>
+              <a class="btn" href="https://play.google.com/store/apps/details?id=com.questalliance.plemyquest&amp;hl=en_IN" target="_blank" rel="noopener">Open on Play Store <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div></div>
+            <div class="aprog"><i></i></div>
+          </article>
+
+          <article class="aitem" style="--i:1;--tile-bg:var(--t2-bg);--tile-fg:var(--t2-fg)">
+            <button class="ahead" type="button" aria-expanded="false">
+              <span class="tile" aria-hidden="true">A</span>
+              <span><span class="nm">ATL Yard App <span class="live">Live</span></span><span class="ds">Vehicle logistics app for a client in Japan: bookings and shipment tracking.</span></span>
+            </button>
+            <div class="abody"><div class="abody-in">
+              <ul class="tags"><li>BLoC</li><li>MVVM</li><li>Real-time tracking</li></ul>
+              <a class="btn" href="https://play.google.com/store/apps/details?id=com.atl.yardapp&amp;hl=en_IN" target="_blank" rel="noopener">Open on Play Store <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div></div>
+            <div class="aprog"><i></i></div>
+          </article>
+
+          <article class="aitem" style="--i:2;--tile-bg:var(--t3-bg);--tile-fg:var(--t3-fg)">
+            <button class="ahead" type="button" aria-expanded="false">
+              <span class="tile" aria-hidden="true">K</span>
+              <span><span class="nm">Khilta Bachpan <span class="live">Live</span></span><span class="ds">Crèche management: child monitoring and daily operations.</span></span>
+            </button>
+            <div class="abody"><div class="abody-in">
+              <ul class="tags"><li>BLoC</li><li>MVVM</li><li>Secure APIs</li></ul>
+              <a class="btn" href="https://play.google.com/store/apps/details?id=com.mw.mobile_creche&amp;hl=en_IN" target="_blank" rel="noopener">Open on Play Store <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div></div>
+            <div class="aprog"><i></i></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="card cform c-contact rise o-contact" id="contact" data-state="idle" style="--i:3;--dy:26px" aria-label="Contact">
+      <h2>Message me <small>developer.ujjwalsharma@gmail.com</small></h2>
+      <form id="cf" novalidate>
+        <div class="fr2">
+          <label class="fld"><span class="vh">Your name</span><input id="cf-name" name="name" type="text" placeholder="Your name" autocomplete="name" maxlength="80"></label>
+          <label class="fld"><span class="vh">Your email</span><input id="cf-email" name="email" type="email" placeholder="Your email" autocomplete="email" maxlength="120"></label>
+        </div>
+        <div class="compose">
+          <label class="fld"><span class="vh">Message</span><textarea id="cf-msg" name="message" rows="2" placeholder="Tell me about the role or project" maxlength="2000"></textarea></label>
+          <button class="sendbtn" type="submit" aria-label="Send message"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 11.5 21 3l-6.5 18-3-7.5L3 11.5Z" fill="currentColor"/></svg></button>
+        </div>
+        <input class="hp" type="text" name="_honey" id="cf-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="ferr" id="cf-err" role="alert"></p>
+      </form>
+
+      <div class="ov ov-send" aria-live="polite"><div class="spin" aria-hidden="true"></div><h3>Sending</h3></div>
+
+      <div class="ov ov-sent" aria-live="polite">
+        <svg class="okc" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22"/><path d="m14 25 7 7 14-15"/></svg>
+        <h3>Message sent</h3>
+        <p>Thanks. I'll reply to the email you entered.</p>
+        <div class="acts"><button class="ghost" type="button" id="cf-again">Write another</button></div>
+      </div>
+
+      <div class="ov ov-fall">
+        <h3>Couldn't send from this page</h3>
+        <p>Your message is ready. Send it by email instead.</p>
+        <div class="acts">
+          <a class="btn" id="cf-mailto" href="mailto:developer.ujjwalsharma@gmail.com">Open email app</a>
+          <button class="ghost" type="button" id="cf-copy">Copy message</button>
+          <button class="ghost" type="button" id="cf-back">Back</button>
+        </div>
+      </div>
+    </section>
   </div>
-</header>
 
-<main class="wrap">
-  <section class="hero" aria-labelledby="top">
-    <div class="hero-main">
-      <span class="status">Open to Flutter roles</span>
-      <h1 id="top">Ujjwal Sharma</h1>
-      <p class="role">Flutter developer building apps that ship to the Play Store.</p>
-      <p class="lede">Over a year of production Flutter work: BLoC and MVVM on Clean Architecture, REST APIs, Firebase and offline-first storage. I own features from first widget to release and Crashlytics follow-up.</p>
-      <div class="actions">
-        <a class="btn primary" href="#apps">See the live apps</a>
-        <a class="btn" href="#contact">Get in touch</a>
-      </div>
-      <ul class="facts">
-        <li><b>3</b><span>Play Store apps</span></li>
-        <li><b>1+ year</b><span>Flutter in production</span></li>
-        <li><b>Japan</b><span>International client</span></li>
-      </ul>
-    </div>
-
-    <aside class="stack" aria-label="How my apps are structured">
-      <h2>How my apps are structured</h2>
-      <p class="hint">Select a layer.</p>
-      <div class="layers" id="layers" role="group" aria-label="App layers">
-        <button class="layer" type="button" aria-pressed="true" data-i="0"><b>Widgets</b><code>UI layer</code></button>
-        <div class="flow" aria-hidden="true">events up, state down</div>
-        <button class="layer" type="button" aria-pressed="false" data-i="1"><b>BLoC</b><code>business logic</code></button>
-        <div class="flow" aria-hidden="true">calls</div>
-        <button class="layer" type="button" aria-pressed="false" data-i="2"><b>Repository</b><code>single source of data</code></button>
-        <div class="flow" aria-hidden="true">reads and writes</div>
-        <button class="layer" type="button" aria-pressed="false" data-i="3"><b>Data sources</b><code>network and device</code></button>
-      </div>
-      <div class="detail" id="detail" aria-live="polite">
-        <p id="detail-text"></p>
-        <ul class="tags" id="detail-tags"></ul>
-      </div>
-    </aside>
-  </section>
-
-  <section class="block" id="apps">
-    <h2>Apps on the Play Store</h2>
-    <div class="content apps">
-      <article class="app">
-        <div>
-          <h3>Quest App</h3>
-          <p class="pkg">com.questalliance.plemyquest</p>
-          <ul class="points">
-            <li>Vocational training learning platform, built in Flutter with BLoC and MVVM on Clean Architecture.</li>
-            <li>One cross-platform codebase for mobile and web, with REST APIs, local caching and structured state handling.</li>
-          </ul>
-          <ul class="tags"><li>Flutter</li><li>Dart</li><li>BLoC</li><li>MVVM</li></ul>
-        </div>
-        <div class="side">
-          <span class="live">Live on Play Store</span>
-          <a class="btn" href="https://play.google.com/store/apps/details?id=com.questalliance.plemyquest&hl=en_IN" target="_blank" rel="noopener">Open on Play Store</a>
-        </div>
-      </article>
-
-      <article class="app">
-        <div>
-          <h3>ATL Yard App</h3>
-          <p class="pkg">com.atl.yardapp</p>
-          <ul class="points">
-            <li>Customer app for a vehicle logistics company in Japan. Users manage bookings and track shipments.</li>
-            <li>Responsive UI with APIs for real-time tracking, booking and logistics updates, plus secure data handling and performance tuning.</li>
-            <li>Built with an international client, using BLoC and MVVM.</li>
-          </ul>
-          <ul class="tags"><li>Flutter</li><li>Dart</li><li>BLoC</li><li>MVVM</li><li>International client</li></ul>
-        </div>
-        <div class="side">
-          <span class="live">Live on Play Store</span>
-          <a class="btn" href="https://play.google.com/store/apps/details?id=com.atl.yardapp&hl=en_IN" target="_blank" rel="noopener">Open on Play Store</a>
-        </div>
-      </article>
-
-      <article class="app">
-        <div>
-          <h3>Khilta Bachpan</h3>
-          <p class="pkg">com.mw.mobile_creche</p>
-          <ul class="points">
-            <li>Crèche management app for child monitoring and daily operations.</li>
-            <li>Reusable, modular components and a responsive UI, with APIs and secure data handling in production.</li>
-          </ul>
-          <ul class="tags"><li>Flutter</li><li>Dart</li><li>BLoC</li><li>MVVM</li></ul>
-        </div>
-        <div class="side">
-          <span class="live">Live on Play Store</span>
-          <a class="btn" href="https://play.google.com/store/apps/details?id=com.mw.mobile_creche&hl=en_IN" target="_blank" rel="noopener">Open on Play Store</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="block" id="build">
-    <h2>How I build</h2>
-    <div class="content build">
-      <div>
-        <h3>Data flow, online and offline</h3>
-        <p class="sub">Screens read from the repository, and the repository decides where the data comes from. Switch the connection to see what changes.</p>
-        <div class="flowbox">
-          <div class="switch" role="group" aria-label="Connection">
-            <button type="button" id="net-on" aria-pressed="true">Online</button>
-            <button type="button" id="net-off" aria-pressed="false">Offline</button>
-          </div>
-          <div class="nodes">
-            <div class="node hit"><b>Widget</b><small>shows the state</small></div>
-            <div class="node hit"><b>BLoC</b><small>handles the event</small></div>
-            <div class="node hit"><b>Repository</b><small>picks the source</small></div>
-            <div class="node hit" id="n-api"><b>REST API</b><small id="n-api-s">Dio request</small></div>
-            <div class="node hit" id="n-cache"><b>Local cache</b><small id="n-cache-s">Hive, SQLite</small></div>
-          </div>
-          <p class="flownote" id="flownote" aria-live="polite"></p>
-        </div>
-      </div>
-
-      <div>
-        <h3>One feature, layer by layer</h3>
-        <p class="sub">A simplified example of the pattern I use in my apps. It illustrates the structure and is not code from a client project.</p>
-        <div class="codebox">
-          <div class="tabs" role="tablist" aria-label="Code example">
-            <button class="tab" role="tab" type="button" aria-selected="true" data-k="bloc">courses_bloc.dart</button>
-            <button class="tab" role="tab" type="button" aria-selected="false" data-k="repo">course_repository.dart</button>
-            <button class="tab" role="tab" type="button" aria-selected="false" data-k="ui">courses_screen.dart</button>
-          </div>
-          <pre class="code" id="code" tabindex="0"></pre>
-        </div>
-      </div>
-
-      <div>
-        <h3>From commit to Play Store</h3>
-        <p class="sub">Each release goes through the same steps, and what Crashlytics reports after release feeds the next fix.</p>
-        <ol class="pipe">
-          <li><b>Review</b><span>Code reviews against shared coding standards</span></li>
-          <li><b>Test</b><span>Unit, widget and integration tests</span></li>
-          <li><b>Build</b><span>GitHub Actions prepares reproducible builds</span></li>
-          <li><b>Release</b><span>Play Store deployment and release updates</span></li>
-          <li><b>Monitor</b><span>Crashlytics after release, then fix</span></li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <section class="block" id="experience">
-    <h2>Experience</h2>
-    <div class="content job">
-      <div class="job-head">
-        <h3>Flutter Developer</h3>
-        <span class="when">Aug 2025 to present</span>
-      </div>
-      <p class="company">Microware Computing &amp; Consulting Pvt. Ltd., Gurugram</p>
+  <div class="col">
+    <section class="card exp c-exp rise o-exp" style="--i:2;--dx:30px;--dy:0px" aria-label="Experience">
+      <h2>Flutter Developer <small>Aug 2025 to present</small></h2>
+      <p class="co">Microware Computing &amp; Consulting Pvt. Ltd., Gurugram</p>
       <ul>
-        <li>Develop and ship production Flutter features end to end across live Play Store apps: development, API integration, testing, bug fixing, release updates and Crashlytics monitoring after release.</li>
-        <li>Build reusable UI components with BLoC, Riverpod, GetX and Provider, applying MVVM and Clean Architecture to keep UI, business logic, repository and data layers separate.</li>
-        <li>Integrate REST APIs with authentication, error-state handling and offline-first caching using Dio, Hive and SQLite.</li>
-        <li>Implement Firebase Cloud Messaging with foreground and background handling, and deep links that open the right screen.</li>
-        <li>Automate build, test and release preparation with GitHub Actions, so builds are reproducible across the team.</li>
-        <li>Build location features with the Google Maps SDK: pickup and drop selection, place search and live tracking.</li>
+        <li>Ship production Flutter features end to end: API integration, testing, release updates and Crashlytics monitoring.</li>
+        <li>Build reusable UI with BLoC, Riverpod, GetX and Provider on MVVM and Clean Architecture.</li>
+        <li>Integrate REST APIs with auth, error states and offline-first caching using Dio, Hive and SQLite.</li>
+        <li>Implement Firebase Cloud Messaging with deep links that open the right screen.</li>
+        <li>Automate builds with GitHub Actions, and build pickup, drop and live tracking with the Google Maps SDK.</li>
       </ul>
-    </div>
-  </section>
+    </section>
 
-  <section class="block" id="skills">
-    <h2>Skills</h2>
-    <dl class="content skills">
-      <div><dt>Flutter and Dart</dt><dd><ul class="tags"><li>Dart</li><li>Flutter SDK</li><li>Mobile and Web</li><li>Platform Channels</li><li>Isolates</li><li>Responsive UI</li><li>Animations</li></ul></dd></div>
-      <div><dt>State management</dt><dd><ul class="tags"><li>BLoC</li><li>Cubit</li><li>Riverpod</li><li>GetX</li><li>Provider</li></ul></dd></div>
-      <div><dt>Architecture</dt><dd><ul class="tags"><li>MVVM</li><li>Clean Architecture</li><li>Repository Pattern</li><li>Dependency Injection</li><li>SOLID</li><li>Offline-first</li><li>Caching</li><li>Pagination</li></ul></dd></div>
-      <div><dt>Backend and storage</dt><dd><ul class="tags"><li>REST APIs</li><li>Dio</li><li>JSON</li><li>OAuth 2.0</li><li>JWT</li><li>WebSockets</li><li>Hive</li><li>SQLite</li><li>SQL</li><li>Supabase</li><li>NestJS</li><li>Prisma</li><li>PostgreSQL</li></ul></dd></div>
-      <div><dt>Firebase</dt><dd><ul class="tags"><li>Cloud Messaging</li><li>Crashlytics</li><li>Authentication</li><li>Remote Config</li><li>Firestore</li><li>Realtime Database</li><li>Analytics</li></ul></dd></div>
-      <div><dt>Tools and delivery</dt><dd><ul class="tags"><li>Git</li><li>GitHub</li><li>GitHub Actions</li><li>CI/CD</li><li>Postman</li><li>Unit, widget and integration tests</li><li>Google Maps SDK</li><li>Geofencing</li><li>Text-to-Speech</li><li>Deep links</li><li>i18n</li><li>Play Store deployment</li><li>Agile and Scrum</li><li>Jira</li></ul></dd></div>
-    </dl>
-  </section>
-
-  <section class="block" id="education">
-    <h2>Education</h2>
-    <div class="content">
-      <ul class="edu">
-        <li><div><b>Master of Computer Applications</b><br><span>Gurugram University, Gurugram</span></div><span class="yr">2023 to 2025</span></li>
-        <li><div><b>Bachelor of Computer Applications, Cloud Computing</b><br><span>SGT University, Gurugram</span></div><span class="yr">2020 to 2023</span></li>
-      </ul>
-      <div class="wins">
-        <h3>Awards</h3>
-        <ul>
-          <li>1st place, Creative Minds, EDUDE FIESTA, K.R. Mangalam University</li>
-          <li>1st place, Synergy 2022, SGT University</li>
-          <li>3rd place, Ideathon, PRADARSHAN 2.0, SGT University</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="block contact" id="contact">
-    <h2>Contact</h2>
-    <div class="content">
-      <h3>Looking for a Flutter developer? Let's talk.</h3>
-      <ul class="rows">
-        <li><span class="k">Email</span><span class="v" id="v-email">developer.ujjwalsharma@gmail.com</span><button class="copy" type="button" data-copy="v-email">Copy</button></li>
-        <li><span class="k">Phone</span><span class="v" id="v-phone">+91 8527038960</span><button class="copy" type="button" data-copy="v-phone">Copy</button></li>
-        <li><span class="k">LinkedIn</span><a class="v" href="https://linkedin.com/in/developerujjwalsharma" target="_blank" rel="noopener">linkedin.com/in/developerujjwalsharma</a></li>
-        <li><span class="k">GitHub</span><a class="v" href="https://github.com/developerujjwal" target="_blank" rel="noopener">github.com/developerujjwal</a></li>
-      </ul>
-    </div>
-  </section>
-
-  <footer>Ujjwal Sharma, Flutter developer</footer>
+    <section class="card skills c-skills rise o-skills" style="--i:3;--dx:30px;--dy:0px" aria-label="Skills">
+      <h2>Skills</h2>
+      <div class="srow"><span class="sk2">Flutter</span><ul class="tags"><li>Dart</li><li>Flutter SDK</li><li>Mobile and Web</li><li>BLoC</li><li>Cubit</li><li>Riverpod</li><li>GetX</li><li>Provider</li></ul></div>
+      <div class="srow"><span class="sk2">Architecture</span><ul class="tags"><li>MVVM</li><li>Clean Architecture</li><li>Repository</li><li>DI</li><li>SOLID</li><li>Offline-first</li></ul></div>
+      <div class="srow"><span class="sk2">Data</span><ul class="tags"><li>REST</li><li>Dio</li><li>JWT</li><li>OAuth 2.0</li><li>Hive</li><li>SQLite</li><li>Firebase</li><li>Supabase</li><li>NestJS</li><li>PostgreSQL</li></ul></div>
+      <div class="srow"><span class="sk2">Tools</span><ul class="tags"><li>Git</li><li>GitHub Actions</li><li>CI/CD</li><li>Postman</li><li>Testing</li><li>Google Maps SDK</li><li>Jira</li></ul></div>
+    </section>
+  </div>
 </main>
+
+<div class="snack" id="snack" role="status" aria-live="polite"></div>
 
 <script>
 (function(){
-  var layers=[
-    {t:"Screens are built from small, reusable widgets that only draw the current state and send user events up. Layouts respond to screen size on mobile and web.",g:["Flutter","Responsive UI","Animations","Custom widgets"]},
-    {t:"Events go in, states come out. Business logic lives here instead of in widgets, which keeps screens simple and the logic easy to test.",g:["BLoC","Cubit","Riverpod","GetX","Provider"]},
-    {t:"The one place the app asks for data. It decides whether to read from the network or the local cache, and hides that choice from the layers above.",g:["Repository pattern","Dependency injection","Offline-first caching"]},
-    {t:"REST calls with authentication and error handling, local storage for offline use, and Firebase for push notifications, auth and crash reports.",g:["Dio","REST APIs","JWT","Hive","SQLite","Firebase"]}
-  ];
-  var btns=document.querySelectorAll('.layer');
-  var text=document.getElementById('detail-text');
-  var tags=document.getElementById('detail-tags');
-  function show(i){
-    btns.forEach(function(b){b.setAttribute('aria-pressed',String(+b.dataset.i===i))});
-    text.textContent=layers[i].t;
-    tags.innerHTML='';
-    layers[i].g.forEach(function(x){var li=document.createElement('li');li.textContent=x;tags.appendChild(li)});
-  }
-  btns.forEach(function(b){b.addEventListener('click',function(){show(+b.dataset.i)})});
-  show(0);
+  var EMAIL='developer.ujjwalsharma@gmail.com';
+  var ENDPOINT='https://formsubmit.co/ajax/'+EMAIL;
+  var reduce=false;
+  try{reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
 
-  document.querySelectorAll('.copy').forEach(function(b){
-    b.addEventListener('click',function(){
-      var el=document.getElementById(b.dataset.copy);
-      var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1400)};
-      var select=function(){var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected';setTimeout(function(){b.textContent='Copy'},1400)};
-      try{
-        if(navigator.clipboard&&navigator.clipboard.writeText){
-          navigator.clipboard.writeText(el.textContent.trim()).then(done,select);
-        }else{select()}
-      }catch(e){select()}
+  /* snackbar */
+  var snack=document.getElementById('snack'),snackT=null;
+  function toast(msg){
+    snack.textContent=msg;snack.classList.add('show');
+    clearTimeout(snackT);snackT=setTimeout(function(){snack.classList.remove('show')},2600);
+  }
+  function copyText(text,okMsg){
+    var done=function(){toast(okMsg)};
+    var fail=function(){toast('Copy this: '+text)};
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,fail)}else{fail()}
+    }catch(e){fail()}
+  }
+
+  /* phone clock */
+  var clock=document.getElementById('clock');
+  function tickClock(){
+    var d=new Date(),h=d.getHours()%12||12,m=d.getMinutes();
+    clock.textContent=h+':'+(m<10?'0':'')+m;
+  }
+  tickClock();setInterval(tickClock,15000);
+
+  /* name reveals letter by letter */
+  var h1=document.querySelector('.hero h1');
+  if(!reduce&&h1){
+    var nm=h1.textContent;
+    h1.setAttribute('aria-label',nm);h1.textContent='';
+    nm.split('').forEach(function(c,k){
+      var s=document.createElement('span');
+      s.className='ch';s.setAttribute('aria-hidden','true');s.style.setProperty('--k',k);
+      s.textContent=c===' '?' ':c;h1.appendChild(s);
+    });
+  }
+
+  /* typing line */
+  var typed=document.getElementById('typed');
+  var words=['BLoC and MVVM','Clean Architecture','Firebase and FCM','offline-first storage','REST APIs and Dio','GitHub Actions CI/CD'];
+  if(!reduce&&typed){
+    var wi=0,ci=words[0].length,mode='hold';
+    (function tick(){
+      var d=55;
+      if(mode==='hold'){mode='del';d=2200}
+      else if(mode==='del'){ci--;typed.textContent=words[wi].slice(0,Math.max(ci,0));d=28;if(ci<=0){wi=(wi+1)%words.length;ci=0;mode='type'}}
+      else{ci++;typed.textContent=words[wi].slice(0,ci);d=55;if(ci>=words[wi].length){mode='hold';d=60}}
+      setTimeout(tick,d);
+    })();
+  }
+
+  /* stagger indexes */
+  document.querySelectorAll('.exp li').forEach(function(li,k){li.style.setProperty('--k',k)});
+  document.querySelectorAll('.skills .tags li').forEach(function(li,k){li.style.setProperty('--k',k)});
+
+  /* cursor glow on cards */
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('pointermove',function(e){
+      if(e.pointerType==='touch')return;
+      var r=c.getBoundingClientRect();
+      c.style.setProperty('--mx',(e.clientX-r.left)+'px');
+      c.style.setProperty('--my',(e.clientY-r.top)+'px');
     });
   });
 
-  /* online / offline flow */
-  var bOn=document.getElementById('net-on'),bOff=document.getElementById('net-off');
-  var nApi=document.getElementById('n-api'),nApiS=document.getElementById('n-api-s');
-  var nCache=document.getElementById('n-cache'),nCacheS=document.getElementById('n-cache-s');
-  var note=document.getElementById('flownote');
-  function net(online){
-    bOn.setAttribute('aria-pressed',String(online));
-    bOff.setAttribute('aria-pressed',String(!online));
-    nApi.className='node '+(online?'hit':'miss');
-    nApiS.textContent=online?'Dio request':'unreachable';
-    nCacheS.textContent=online?'saves the fresh copy':'serves the last copy';
-    note.textContent=online
-      ?'The repository calls the API, saves the response to the local cache and returns fresh data to the BLoC.'
-      :'The API call fails, so the repository returns the last saved copy from the cache. The screen still opens with data.';
-  }
-  bOn.addEventListener('click',function(){net(true)});
-  bOff.addEventListener('click',function(){net(false)});
-  net(true);
+  /* dock: copy email and number */
+  document.querySelectorAll('.dk[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){copyText(b.dataset.copy,b.dataset.msg)});
+  });
 
-  /* code example */
-  var src={
-bloc:"sealed class CoursesEvent {}\nclass CoursesRequested extends CoursesEvent {}\n\nsealed class CoursesState {}\nclass CoursesLoading extends CoursesState {}\nclass CoursesLoaded extends CoursesState {\n  CoursesLoaded(this.items);\n  final List<Course> items;\n}\nclass CoursesFailure extends CoursesState {\n  CoursesFailure(this.message);\n  final String message;\n}\n\nclass CoursesBloc extends Bloc<CoursesEvent, CoursesState> {\n  CoursesBloc(this._repo) : super(CoursesLoading()) {\n    on<CoursesRequested>((event, emit) async {\n      try {\n        emit(CoursesLoaded(await _repo.courses()));\n      } catch (_) {\n        emit(CoursesFailure('Could not load courses'));\n      }\n    });\n  }\n\n  final CourseRepository _repo;\n}",
-repo:"class CourseRepository {\n  CourseRepository(this._api, this._cache);\n\n  final CourseApi _api;\n  final CourseCache _cache;\n\n  Future<List<Course>> courses() async {\n    try {\n      final fresh = await _api.fetchCourses();\n      await _cache.save(fresh);\n      return fresh;\n    } on NetworkException {\n      // Offline: serve the last saved copy.\n      return _cache.read();\n    }\n  }\n}",
-ui:"class CoursesScreen extends StatelessWidget {\n  const CoursesScreen({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return BlocBuilder<CoursesBloc, CoursesState>(\n      builder: (context, state) => switch (state) {\n        CoursesLoading() => const CircularProgressIndicator(),\n        CoursesLoaded(:final items) => CourseList(items: items),\n        CoursesFailure(:final message) => ErrorView(message: message),\n      },\n    );\n  }\n}"
-  };
-  var KW='class|extends|final|const|async|await|try|catch|on|return|switch|sealed|super|this|override|void|Future';
-  var re=new RegExp("(//[^\\n]*)|('[^'\\n]*')|\\b("+KW+")\\b|\\b([A-Z][A-Za-z0-9_]*)\\b",'g');
-  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-  function hl(s){
-    return esc(s).replace(re,function(m,c,st,k,t){
-      if(c)return '<span class="c">'+c+'</span>';
-      if(st)return '<span class="s">'+st+'</span>';
-      if(k)return '<span class="k">'+k+'</span>';
-      return '<span class="t">'+t+'</span>';
+  /* app showcase: phone screens follow the selected app */
+  var items=[].slice.call(document.querySelectorAll('.aitem'));
+  var scrs=[].slice.call(document.querySelectorAll('.scr'));
+  var stage=document.getElementById('stage'),phone=document.getElementById('phone'),show=document.getElementById('showcase');
+  var ai=0,atimer=null;
+  function runProg(){
+    items.forEach(function(it){it.querySelector('.aprog').classList.remove('run')});
+    var p=items[ai].querySelector('.aprog');void p.offsetWidth;p.classList.add('run');
+  }
+  function pick(i){
+    ai=i;
+    items.forEach(function(it,k){
+      var on=k===i;it.classList.toggle('on',on);
+      it.querySelector('.ahead').setAttribute('aria-expanded',String(on));
     });
+    scrs.forEach(function(s,k){s.classList.toggle('on',k===i)});
+    stage.style.setProperty('--ga','var(--t'+(i+1)+'-fg)');
+    runProg();
   }
-  var codeEl=document.getElementById('code');
-  var tabs=document.querySelectorAll('.tab');
-  function tab(k){
-    tabs.forEach(function(b){b.setAttribute('aria-selected',String(b.dataset.k===k))});
-    codeEl.innerHTML=hl(src[k]);
+  function auto(){
+    if(reduce)return;
+    clearInterval(atimer);
+    atimer=setInterval(function(){pick((ai+1)%items.length)},3600);
   }
-  tabs.forEach(function(b){b.addEventListener('click',function(){tab(b.dataset.k)})});
-  tab('bloc');
+  items.forEach(function(it,k){it.querySelector('.ahead').addEventListener('click',function(){pick(k);auto()})});
+  show.addEventListener('mouseenter',function(){clearInterval(atimer);show.classList.add('paused')});
+  show.addEventListener('mouseleave',function(){show.classList.remove('paused');if(!reduce){runProg();auto()}});
+  stage.addEventListener('pointermove',function(e){
+    if(reduce||e.pointerType==='touch')return;
+    var r=stage.getBoundingClientRect();
+    var x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    phone.style.setProperty('--py',(x*14)+'deg');phone.style.setProperty('--px',(-y*10)+'deg');
+  });
+  stage.addEventListener('pointerleave',function(){phone.style.setProperty('--px','0deg');phone.style.setProperty('--py','0deg')});
+  pick(0);auto();
 
-  /* active nav link */
-  try{
-    var links={};document.querySelectorAll('.bar nav a').forEach(function(a){links[a.getAttribute('href')]=a});
-    var io=new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        if(e.isIntersecting){
-          Object.keys(links).forEach(function(h){links[h].classList.toggle('active',h==='#'+e.target.id)});
-        }
-      });
-    },{rootMargin:'-35% 0px -55% 0px'});
-    ['apps','build','experience','skills','contact'].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
-  }catch(e){}
+  /* contact form */
+  var box=document.getElementById('contact'),form=document.getElementById('cf');
+  var fName=document.getElementById('cf-name'),fEmail=document.getElementById('cf-email'),fMsg=document.getElementById('cf-msg'),fHp=document.getElementById('cf-hp');
+  var err=document.getElementById('cf-err');
+  function setState(s){box.dataset.state=s}
+  function mark(el,bad){el.closest('.fld').classList.toggle('bad',bad)}
+  function validate(){
+    var n=fName.value.trim(),e=fEmail.value.trim(),m=fMsg.value.trim(),msg='';
+    mark(fName,!n);mark(fEmail,!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e));mark(fMsg,m.length<10);
+    if(!n)msg='Add your name.';
+    else if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e))msg='Add a valid email so I can reply.';
+    else if(m.length<10)msg='Write a few words about the role or project.';
+    err.textContent=msg;
+    return !msg;
+  }
+  function fallback(n,e,m){
+    var body=m+'\n\n'+n+'\n'+e;
+    document.getElementById('cf-mailto').href='mailto:'+EMAIL+'?subject='+encodeURIComponent('Portfolio message from '+n)+'&body='+encodeURIComponent(body);
+    box.dataset.copy='To: '+EMAIL+'\nSubject: Portfolio message from '+n+'\n\n'+body;
+    setState('fallback');
+  }
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    if(!validate())return;
+    var n=fName.value.trim(),e=fEmail.value.trim(),m=fMsg.value.trim();
+    if(fHp.value){setState('sent');return}
+    setState('sending');
+    var ctl=null,timer=null;
+    try{ctl=new AbortController();timer=setTimeout(function(){ctl.abort()},12000)}catch(x){}
+    fetch(ENDPOINT,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name:n,email:e,message:m,_subject:'Portfolio message from '+n,_template:'table',_captcha:'false'}),
+      signal:ctl?ctl.signal:undefined
+    }).then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d}})})
+    .then(function(res){
+      clearTimeout(timer);
+      if(res.ok&&(res.d.success===true||res.d.success==='true')){setState('sent');form.reset()}
+      else{fallback(n,e,m)}
+    }).catch(function(){clearTimeout(timer);fallback(n,e,m)});
+  });
+  [fName,fEmail,fMsg].forEach(function(el){el.addEventListener('input',function(){mark(el,false);err.textContent=''})});
+  document.getElementById('cf-again').addEventListener('click',function(){setState('idle');fName.focus()});
+  document.getElementById('cf-back').addEventListener('click',function(){setState('idle')});
+  document.getElementById('cf-copy').addEventListener('click',function(){copyText(box.dataset.copy||EMAIL,'Message copied')});
+  document.getElementById('msgbtn').addEventListener('click',function(){
+    setState('idle');
+    try{box.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'})}catch(e){}
+    setTimeout(function(){try{(fName.value?fMsg:fName).focus({preventScroll:true})}catch(e){}},350);
+  });
 
-  var root=document.documentElement,tb=document.getElementById('theme');
-  var mq=window.matchMedia('(prefers-color-scheme: dark)');
-  function eff(){return root.getAttribute('data-theme')||(mq.matches?'dark':'light')}
-  function label(){tb.textContent=eff()==='dark'?'Light mode':'Dark mode'}
+  /* theme: light by default, dark only when chosen */
+  var root=document.documentElement,tb=document.getElementById('theme'),hot=document.getElementById('hot'),hotTxt=document.getElementById('hottxt');
+  function cur(){return root.getAttribute('data-theme')==='dark'?'dark':'light'}
+  function sync(){
+    var d=cur()==='dark';
+    tb.setAttribute('aria-checked',String(d));
+    tb.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');
+  }
   try{var s=localStorage.getItem('theme');if(s==='dark'||s==='light')root.setAttribute('data-theme',s)}catch(e){}
-  label();
+  sync();
   tb.addEventListener('click',function(){
-    var n=eff()==='dark'?'light':'dark';
+    var n=cur()==='dark'?'light':'dark';
     root.setAttribute('data-theme',n);
     try{localStorage.setItem('theme',n)}catch(e){}
-    label();
+    sync();
+    hotTxt.textContent='Reloaded';hot.classList.remove('zap');void hot.offsetWidth;hot.classList.add('zap');
+    setTimeout(function(){hotTxt.textContent='Hot reload';hot.classList.remove('zap')},1400);
   });
+
+  /* count-up numbers */
+  if(!reduce){
+    document.querySelectorAll('[data-n]').forEach(function(el){
+      var to=+el.dataset.n,suf=el.dataset.s||'',t0=null,dur=900,delay=500;
+      el.textContent='0'+suf;
+      function f(ts){
+        if(t0===null)t0=ts;
+        var p=Math.min(Math.max((ts-t0-delay)/dur,0),1),e=1-Math.pow(1-p,3);
+        el.textContent=Math.round(to*e)+suf;
+        if(p<1)requestAnimationFrame(f);
+      }
+      requestAnimationFrame(f);
+    });
+  }
 })();
 </script>
 
-</body></html>
+</body>
+</html>

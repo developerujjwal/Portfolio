@@ -1,16 +1,5 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Ujjwal Sharma, Flutter developer. Three live Play Store apps built with BLoC, MVVM and Clean Architecture.">
-<title>Ujjwal Sharma</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap">
-<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-</head>
-<body>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Ujjwal Sharma - Flutter Developer portfolio"><title>Ujjwal Sharma</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap"><style>:root{color-scheme:light}body{margin:0}</style></head><body>
 
 
 
@@ -275,19 +264,13 @@ button{font:inherit;color:inherit}
 .sendbtn:hover{transform:translateY(-2px) rotate(-10deg);filter:brightness(1.08)}
 .ferr{font-size:.74rem;color:var(--err);min-height:0}
 .cform>.ov{position:absolute;inset:0;z-index:3;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;text-align:center;padding:.8rem 1rem;opacity:0;pointer-events:none;transform:scale(.985);transition:opacity .3s,transform .3s}
-.cform[data-state="sending"]>.ov-send,.cform[data-state="sent"]>.ov-sent,.cform[data-state="fallback"]>.ov-fall{opacity:1;pointer-events:auto;transform:none}
+.cform[data-state="sending"]>.ov-send{opacity:1;pointer-events:auto;transform:none}
 .ov h3{font-family:var(--display);font-size:1.05rem;font-weight:600}
 .ov p{font-size:.84rem;color:var(--muted);max-width:34ch}
 .ov .acts{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center}
 .ghost{font-size:.82rem;font-weight:600;background:transparent;border:1px solid var(--line);border-radius:10px;padding:.42rem .8rem;cursor:pointer;color:var(--ink);text-decoration:none}
 .ghost:hover{border-color:var(--accent)}
 .spin{width:1.6rem;height:1.6rem;border-radius:50%;border:3px solid var(--accent-soft);border-top-color:var(--accent);animation:spin 800ms linear infinite}
-.okc{width:3rem;height:3rem}
-.okc circle{fill:none;stroke:var(--live);stroke-width:3;stroke-dasharray:140;stroke-dashoffset:140}
-.okc path{fill:none;stroke:var(--live);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40}
-.cform[data-state="sent"] .okc circle{animation:draw .6s ease forwards}
-.cform[data-state="sent"] .okc path{animation:draw .4s .45s ease forwards}
-@keyframes draw{to{stroke-dashoffset:0}}
 .hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
 
 /* snackbar */
@@ -447,7 +430,7 @@ button{font:inherit;color:inherit}
       <form id="cf" novalidate>
         <div class="fr2">
           <label class="fld"><span class="vh">Your name</span><input id="cf-name" name="name" type="text" placeholder="Your name" autocomplete="name" maxlength="80"></label>
-          <label class="fld"><span class="vh">Your email</span><input id="cf-email" name="email" type="email" placeholder="Your email" autocomplete="email" maxlength="120"></label>
+          <label class="fld"><span class="vh">Your email</span><input id="cf-email" name="email" type="email" placeholder="Your email (optional)" autocomplete="email" maxlength="120"></label>
         </div>
         <div class="compose">
           <label class="fld"><span class="vh">Message</span><textarea id="cf-msg" name="message" rows="2" placeholder="Tell me about the role or project" maxlength="2000"></textarea></label>
@@ -457,24 +440,7 @@ button{font:inherit;color:inherit}
         <p class="ferr" id="cf-err" role="alert"></p>
       </form>
 
-      <div class="ov ov-send" aria-live="polite"><div class="spin" aria-hidden="true"></div><h3>Sending</h3></div>
-
-      <div class="ov ov-sent" aria-live="polite">
-        <svg class="okc" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22"/><path d="m14 25 7 7 14-15"/></svg>
-        <h3>Message sent</h3>
-        <p>Thanks. I'll reply to the email you entered.</p>
-        <div class="acts"><button class="ghost" type="button" id="cf-again">Write another</button></div>
-      </div>
-
-      <div class="ov ov-fall">
-        <h3>Couldn't send from this page</h3>
-        <p>Your message is ready. Send it by email instead.</p>
-        <div class="acts">
-          <a class="btn" id="cf-mailto" href="mailto:developer.ujjwalsharma@gmail.com">Open email app</a>
-          <button class="ghost" type="button" id="cf-copy">Copy message</button>
-          <button class="ghost" type="button" id="cf-back">Back</button>
-        </div>
-      </div>
+      <div class="ov ov-send" aria-live="polite"><div class="spin" aria-hidden="true"></div><h3>Opening your email</h3><p>Your message is filled in. Press Send in your email app.</p></div>
     </section>
   </div>
 
@@ -506,7 +472,6 @@ button{font:inherit;color:inherit}
 <script>
 (function(){
   var EMAIL='developer.ujjwalsharma@gmail.com';
-  var ENDPOINT='https://formsubmit.co/ajax/'+EMAIL;
   var reduce=false;
   try{reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
 
@@ -619,45 +584,30 @@ button{font:inherit;color:inherit}
   var err=document.getElementById('cf-err');
   function setState(s){box.dataset.state=s}
   function mark(el,bad){el.closest('.fld').classList.toggle('bad',bad)}
+  var EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   function validate(){
     var n=fName.value.trim(),e=fEmail.value.trim(),m=fMsg.value.trim(),msg='';
-    mark(fName,!n);mark(fEmail,!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e));mark(fMsg,m.length<10);
+    var badE=!!e&&!EMAIL_RE.test(e);
+    mark(fName,!n);mark(fEmail,badE);mark(fMsg,m.length<10);
     if(!n)msg='Add your name.';
-    else if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e))msg='Add a valid email so I can reply.';
+    else if(badE)msg='That email address looks incomplete.';
     else if(m.length<10)msg='Write a few words about the role or project.';
     err.textContent=msg;
     return !msg;
   }
-  function fallback(n,e,m){
-    var body=m+'\n\n'+n+'\n'+e;
-    document.getElementById('cf-mailto').href='mailto:'+EMAIL+'?subject='+encodeURIComponent('Portfolio message from '+n)+'&body='+encodeURIComponent(body);
-    box.dataset.copy='To: '+EMAIL+'\nSubject: Portfolio message from '+n+'\n\n'+body;
-    setState('fallback');
-  }
   form.addEventListener('submit',function(ev){
     ev.preventDefault();
-    if(!validate())return;
+    if(!validate()||fHp.value)return;
     var n=fName.value.trim(),e=fEmail.value.trim(),m=fMsg.value.trim();
-    if(fHp.value){setState('sent');return}
+    var body='Hi Ujjwal,\n\n'+m+'\n\n'+n+(e?'\n'+e:'');
+    var href='mailto:'+EMAIL+'?subject='+encodeURIComponent('Portfolio message from '+n)+'&body='+encodeURIComponent(body);
+    var a=document.createElement('a');
+    a.href=href;a.rel='noopener';a.style.display='none';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
     setState('sending');
-    var ctl=null,timer=null;
-    try{ctl=new AbortController();timer=setTimeout(function(){ctl.abort()},12000)}catch(x){}
-    fetch(ENDPOINT,{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({name:n,email:e,message:m,_subject:'Portfolio message from '+n,_template:'table',_captcha:'false'}),
-      signal:ctl?ctl.signal:undefined
-    }).then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d}})})
-    .then(function(res){
-      clearTimeout(timer);
-      if(res.ok&&(res.d.success===true||res.d.success==='true')){setState('sent');form.reset()}
-      else{fallback(n,e,m)}
-    }).catch(function(){clearTimeout(timer);fallback(n,e,m)});
+    setTimeout(function(){setState('idle')},3500);
   });
   [fName,fEmail,fMsg].forEach(function(el){el.addEventListener('input',function(){mark(el,false);err.textContent=''})});
-  document.getElementById('cf-again').addEventListener('click',function(){setState('idle');fName.focus()});
-  document.getElementById('cf-back').addEventListener('click',function(){setState('idle')});
-  document.getElementById('cf-copy').addEventListener('click',function(){copyText(box.dataset.copy||EMAIL,'Message copied')});
   document.getElementById('msgbtn').addEventListener('click',function(){
     setState('idle');
     try{box.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'})}catch(e){}
@@ -700,5 +650,4 @@ button{font:inherit;color:inherit}
 })();
 </script>
 
-</body>
-</html>
+</body></html>

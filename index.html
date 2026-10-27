@@ -243,6 +243,112 @@ button{font:inherit;color:inherit}
 
 .aitem:not(.on) .ds{display:none}
 .aitem:not(.on) .ahead{padding-top:.4rem;padding-bottom:.4rem}
+
+/* top nav, resume, intro loader, more section */
+html{scroll-behavior:smooth}
+.tnav{display:none;gap:.1rem;margin-left:.4rem}
+.tnav a{font-size:.82rem;font-weight:600;color:var(--muted);text-decoration:none;padding:.25rem .65rem;border-radius:999px;transition:background .2s,color .2s}
+.tnav a:hover{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent)}
+.tnav{display:flex;overflow-x:auto;max-width:100%}@media (max-width:999px){.tnav{order:5;width:100%}}
+.resbtn{display:inline-flex;align-items:center;gap:.4rem;background:transparent;cursor:pointer;font-size:.84rem;font-weight:600;color:var(--accent);border:1.5px solid var(--accent);border-radius:999px;padding:.3rem .9rem;text-decoration:none;transition:background .2s,color .2s}
+.resbtn:hover{background:var(--accent);color:var(--accent-ink)}
+@media (max-width:700px){.resbtn span{display:none}.resbtn{padding:.35rem .6rem}}
+.intro{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;background:linear-gradient(150deg,#06257A,#0A4FE0 60%,#0A6CC4);color:#fff;transition:opacity .5s,visibility .5s,transform .6s cubic-bezier(.7,0,.3,1)}
+.intro.out{opacity:0;visibility:hidden;transform:scale(1.04)}
+.intro .lg{font-family:var(--display);font-weight:700;font-size:clamp(2.4rem,7vw,4.2rem);letter-spacing:-.02em;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.04)}}
+.intro .ld{font-size:.9rem;opacity:.85;font-variant-numeric:tabular-nums;min-height:1.3em}
+.intro .ln{width:min(16rem,60vw);height:.3rem;border-radius:99px;background:rgba(255,255,255,.25);overflow:hidden}
+.intro .ln i{display:block;height:100%;width:0;background:#fff;border-radius:inherit}
+.intro button{margin-top:.6rem;background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:999px;padding:.3rem .9rem;font-size:.78rem;cursor:pointer}
+.intro button:hover{background:rgba(255,255,255,.15)}
+.more{position:relative;z-index:1;max-width:1480px;margin:12px auto 0;display:flex;flex-direction:column;gap:12px}
+.strip{overflow:hidden;border-radius:14px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);display:flex;align-items:center}
+.strip>b{flex:none;font-family:var(--display);font-size:.78rem;padding:.6rem .9rem;color:var(--accent);border-right:1px solid var(--line);white-space:nowrap}
+.mq{overflow:hidden;flex:1;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.mq ul{display:flex;gap:.5rem;width:max-content;list-style:none;margin:0;padding:.5rem .5rem;animation:mq 30s linear infinite}
+.mq:hover ul{animation-play-state:paused}
+.mq li{font-size:.8rem;font-weight:600;padding:.2rem .75rem;border-radius:99px;background:var(--surface2);border:1px solid var(--line);white-space:nowrap}
+@keyframes mq{to{transform:translateX(-50%)}}
+.mgrid{display:grid;gap:12px;grid-template-columns:1fr}
+@media (min-width:900px){.mgrid{grid-template-columns:1.4fr 1fr}}
+.hl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.55rem}
+.hl li{display:flex;gap:.6rem;font-size:.92rem;color:var(--ink)}
+.hl li::before{content:"▸";color:var(--accent);flex:none}
+.abt p{font-size:.92rem;color:var(--muted);margin:0 0 .7rem}
+.tl{list-style:none;margin:0;padding:0 0 0 1rem;border-left:2px solid var(--line);display:flex;flex-direction:column;gap:.8rem}
+.tl li{position:relative;font-size:.9rem}
+.tl li::before{content:"";position:absolute;left:calc(-1rem - 6px);top:.35rem;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--surface)}
+.tl b{display:block;font-family:var(--display);font-weight:600}
+.tl span{color:var(--muted);font-size:.8rem}
+.eco{text-align:center;padding:1.1rem 1rem}
+.eco h2{display:block!important;font-size:clamp(1.2rem,2.4vw,1.8rem)!important;margin-bottom:.7rem!important}
+.eco .tags{justify-content:center}
+.eco p{margin:.8rem 0 0;font-size:.8rem;color:var(--muted)}
+
+/* multi-screen layout */
+.top{position:fixed;top:var(--gutter);left:var(--gutter);right:var(--gutter);max-width:1480px;margin-inline:auto;z-index:50}
+.sec{min-height:100vh;min-height:100dvh;scroll-snap-align:start;padding:calc(4.2rem + var(--gutter)) 0 1rem;display:flex;flex-direction:column;justify-content:center;gap:12px;scroll-margin-top:0}
+.sec:not(.vis) .rise{animation-play-state:paused}
+.sgrid>*{min-width:0}
+.mq{min-width:0}
+.sgrid{display:grid;gap:12px;grid-template-columns:1fr;width:100%}
+@media (min-width:1000px){
+  .g-home{grid-template-columns:minmax(300px,360px) minmax(0,1fr);align-items:stretch}
+  .g-two{grid-template-columns:1fr 1fr;align-items:start}
+  .g-one{grid-template-columns:minmax(0,1fr)}
+  .g-contact{max-width:820px;margin-inline:auto}
+}
+.homeR{display:flex;flex-direction:column;justify-content:center;gap:1rem;padding:1rem 1.2rem}
+.kick{font-family:var(--display);font-weight:600;color:var(--accent);font-size:.95rem;margin:0}
+.big{font-family:var(--display);font-weight:700;font-size:clamp(2rem,4.6vw,3.8rem);line-height:1.05;letter-spacing:-.02em;margin:0}
+.big em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--blob2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(1rem,1.3vw,1.2rem);color:var(--muted);margin:0;max-width:34rem}
+.ctas{display:flex;flex-wrap:wrap;gap:.6rem}
+.cta{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.95rem;padding:.6rem 1.2rem;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;cursor:pointer;transition:transform .2s,background .2s,border-color .2s}
+.cta:hover{transform:translateY(-2px);border-color:var(--accent)}
+.cta.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.reach{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.5rem}
+.reach span{font-size:.85rem;color:var(--muted);margin-right:.3rem}
+.cc{font:inherit;font-size:.85rem;font-weight:600;color:var(--accent);background:var(--surface);border:1.5px solid var(--line);border-radius:999px;padding:.35rem .9rem;text-decoration:none;cursor:pointer;transition:background .2s,color .2s}
+.cc:hover{background:var(--accent);color:var(--accent-ink)}
+.tnav a.act{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}
+.s-contact .cform textarea{min-height:5.5rem}
+
+/* pages */
+.shell{display:block}
+html{scroll-snap-type:none!important}
+.app{position:relative;z-index:1;max-width:1480px;margin-inline:auto}
+.view{display:none;padding:calc(3.5rem + var(--gutter)) 0 2rem}
+.view.on{display:block;animation:vin .45s ease both}
+@keyframes vin{from{opacity:0;transform:translateY(10px)}}
+.hgrid{display:flex;flex-direction:column;gap:12px}
+@media (min-width:1100px){
+  .view#v-home{min-height:100vh;min-height:100dvh;padding-bottom:10px}
+  .hgrid{display:grid;grid-template-columns:minmax(280px,340px) minmax(0,1.12fr) minmax(0,1fr);align-items:stretch}
+}
+.va{color:var(--accent);font-weight:600;text-decoration:none}.va:hover{text-decoration:underline}
+.ph{margin:0 0 1rem;padding:0 .3rem}
+.ph h1{font-family:var(--display);font-size:clamp(1.8rem,3.4vw,2.8rem);font-weight:700;letter-spacing:-.02em;margin:0}
+.ph p{color:var(--muted);margin:.3rem 0 0;font-size:1rem;max-width:44rem}
+.pgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.pgrid>*,.sk-grid>*{min-width:0}
+.sk-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));margin-top:12px}
+.pc{display:flex;flex-direction:column;gap:.7rem}
+.pch{display:flex;align-items:center;gap:.7rem}
+.pch .tile{display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:.7rem;font-family:var(--display);font-weight:700;background:var(--tile-bg);color:var(--tile-fg)}
+.pch h3{font-family:var(--display);font-size:1.1rem;margin:0;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.kind{font-size:.78rem;color:var(--muted)}
+.pd{font-size:.92rem;color:var(--muted);margin:0}
+.pb{list-style:disc;margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.35rem;font-size:.88rem}
+.pb.big{font-size:.98rem;gap:.55rem;margin:.6rem 0 1rem}
+.pc .btn{margin-top:auto}
+@media (min-width:1000px){#v-projects .pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.co{color:var(--muted);margin:0}
+.ci{margin:.4rem 0 .8rem}.ci li::before{content:"";}
+.rbig{justify-content:flex-start}
+.view .strip{margin:0 0 0}
+.view .card h2{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.2rem .8rem}
 /* skills */
 .srow{display:grid;grid-template-columns:5.2rem minmax(0,1fr);gap:.5rem;align-items:start;padding-block:.3rem;border-top:1px solid var(--line)}
 .srow:first-of-type{border-top:0;padding-top:0}
@@ -285,12 +391,14 @@ button{font:inherit;color:inherit}
 
 <div class="bg" aria-hidden="true"><i></i><i></i></div>
 
-<main class="shell">
-  <header class="top rise o-top" style="--i:0;--dy:-22px">
+<main class="app" id="top">
+<header class="top o-top" style="--i:0;--dy:-22px">
     <span class="status"><i></i>Open to Flutter roles</span>
     <span class="loc">Gurugram, India</span>
     <span class="hot" id="hot" title="Try the switch"><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M13 2 5 13h6l-1 9 8-12h-6l1-8Z" fill="currentColor"/></svg><span id="hottxt">Hot reload</span></span>
+    <nav class="tnav" aria-label="Pages"><a href="#home" data-v="home">Home</a><a href="#projects" data-v="projects">Projects</a><a href="#experience" data-v="experience">Experience</a><a href="#skills" data-v="skills">Skills</a><a href="#about" data-v="about">About</a><a href="#contact" data-v="contact">Contact</a></nav>
     <div class="topact">
+      <button class="resbtn js-res" type="button"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Download resume</span></button>
       <button class="msgbtn" id="msgbtn" type="button"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M3 11.5 21 3l-6.5 18-3-7.5L3 11.5Z" fill="currentColor"/></svg>Message me</button>
       <button class="switch" id="theme" type="button" role="switch" aria-checked="false" aria-label="Switch to dark mode">
         <span class="knob">
@@ -300,8 +408,9 @@ button{font:inherit;color:inherit}
       </button>
     </div>
   </header>
-
-  <section class="card hero rise o-hero" style="--i:1;--dx:-30px;--dy:0px" aria-label="Profile">
+  <div class="view on" id="v-home" data-view="home">
+    <div class="hgrid">
+<section class="card hero rise o-hero" style="--i:1;--dx:-30px;--dy:0px" aria-label="Profile">
     <i class="island" aria-hidden="true"></i>
     <div class="sbar" aria-hidden="true">
       <span id="clock">9:41</span>
@@ -341,10 +450,9 @@ button{font:inherit;color:inherit}
     </div>
     <i class="home" aria-hidden="true"></i>
   </section>
-
-  <div class="col">
-    <section class="card c-apps rise o-apps" style="--i:2;--dy:26px" aria-label="Apps">
-      <h2>Live on the Play Store <small>6+ apps · Flutter, Kotlin, KMP</small></h2>
+      <div class="col">
+<section id="apps" class="card c-apps rise o-apps" style="--i:2;--dy:26px" aria-label="Apps">
+      <h2>Live on the Play Store <small>6+ apps · <a class="va" href="#projects">View all</a></small></h2>
       <div class="showcase" id="showcase">
         <div class="stage" id="stage">
           <div class="phone" id="phone" aria-hidden="true">
@@ -488,8 +596,7 @@ button{font:inherit;color:inherit}
         </div>
       </div>
     </section>
-
-    <section class="card cform c-contact rise o-contact" id="contact" data-state="idle" style="--i:3;--dy:26px" aria-label="Contact">
+<section class="card cform c-contact rise o-contact" id="contact" data-state="idle" style="--i:3;--dy:26px" aria-label="Contact">
       <h2>Message me <small>developer.ujjwalsharma@gmail.com</small></h2>
       <form id="cf" novalidate>
         <div class="fr2">
@@ -506,11 +613,10 @@ button{font:inherit;color:inherit}
 
       <div class="ov ov-send" aria-live="polite"><div class="spin" aria-hidden="true"></div><h3>Opening your email</h3><p>Your message is filled in. Press Send in your email app.</p></div>
     </section>
-  </div>
-
-  <div class="col">
-    <section class="card exp c-exp rise o-exp" style="--i:2;--dx:30px;--dy:0px" aria-label="Experience">
-      <h2>Flutter Developer <small>Aug 2025 to present</small></h2>
+      </div>
+      <div class="col">
+<section id="experience" class="card exp c-exp rise o-exp" style="--i:2;--dx:30px;--dy:0px" aria-label="Experience">
+      <h2>Flutter Developer <small>Aug 2025 to present · <a class="va" href="#experience">Details</a></small></h2>
       <p class="co">Microware Computing &amp; Consulting Pvt. Ltd., Gurugram</p>
       <ul>
         <li>Ship production Flutter features end to end: API integration, testing, release updates and Crashlytics monitoring.</li>
@@ -520,17 +626,115 @@ button{font:inherit;color:inherit}
         <li>Automate builds with GitHub Actions, and build pickup, drop and live tracking with the Google Maps SDK.</li>
       </ul>
     </section>
-
-    <section class="card skills c-skills rise o-skills" style="--i:3;--dx:30px;--dy:0px" aria-label="Skills">
-      <h2>Skills</h2>
+<section id="skills" class="card skills c-skills rise o-skills" style="--i:3;--dx:30px;--dy:0px" aria-label="Skills">
+      <h2>Skills <small><a class="va" href="#skills">View all</a></small></h2>
       <div class="srow"><span class="sk2">Flutter</span><ul class="tags"><li>Dart</li><li>Flutter SDK</li><li>Mobile and Web</li><li>BLoC</li><li>Cubit</li><li>Riverpod</li><li>GetX</li><li>Provider</li></ul></div>
       <div class="srow"><span class="sk2">Architecture</span><ul class="tags"><li>MVVM</li><li>Clean Architecture</li><li>Repository</li><li>DI</li><li>SOLID</li><li>Offline-first</li></ul></div>
       <div class="srow"><span class="sk2">Data</span><ul class="tags"><li>REST</li><li>Dio</li><li>JWT</li><li>OAuth 2.0</li><li>Hive</li><li>SQLite</li><li>Firebase</li><li>Supabase</li><li>NestJS</li><li>PostgreSQL</li></ul></div>
       <div class="srow"><span class="sk2">Tools</span><ul class="tags"><li>Git</li><li>GitHub Actions</li><li>CI/CD</li><li>Postman</li><li>Testing</li><li>Google Maps SDK</li><li>Jira</li></ul></div>
       <div class="srow"><span class="sk2">AI</span><ul class="tags"><li>Claude AI</li><li>GitHub Copilot</li><li>OpenAI Codex</li><li>AI-assisted dev</li><li>Kotlin / KMP basics</li></ul></div>
     </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="view" id="v-projects" data-view="projects">
+    <div class="ph rise" style="--i:0;--dy:14px"><h1>Projects</h1><p>6+ apps live on the Play Store: Flutter with BLoC and MVVM, plus Kotlin and KMP apps built with AI assistance.</p></div>
+    <div class="pgrid">
+      <article class="card pc rise" style="--i:0;--dy:22px;--tile-bg:var(--t1-bg);--tile-fg:var(--t1-fg)">
+        <div class="pch"><span class="tile" aria-hidden="true">Q</span><div><h3>Quest App <span class="live">Live</span></h3><span class="kind">Flutter</span></div></div>
+        <p class="pd">Vocational training learning platform on mobile and web.</p>
+        <ul class="tags"><li>Flutter</li><li>Dart</li><li>BLoC</li><li>MVVM</li><li>Clean Architecture</li></ul>
+        <ul class="pb"><li>Built features with BLoC and MVVM on Clean Architecture, in a cross-platform codebase for mobile and web.</li><li>Integrated REST APIs with local caching and structured state handling for reliable, responsive flows.</li></ul>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.questalliance.plemyquest&amp;hl=en_IN" target="_blank" rel="noopener">Open on Play Store <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article><article class="card pc rise" style="--i:1;--dy:22px;--tile-bg:var(--t2-bg);--tile-fg:var(--t2-fg)">
+        <div class="pch"><span class="tile" aria-hidden="true">A</span><div><h3>ATL Yard App <span class="live">Live</span></h3><span class="kind">Flutter · International client</span></div></div>
+        <p class="pd">Vehicle logistics app for an international client in Japan.</p>
+        <ul class="tags"><li>Flutter</li><li>Dart</li><li>BLoC</li><li>MVVM</li><li>Real-time tracking</li></ul>
+        <ul class="pb"><li>Customer-facing app to manage vehicle bookings and track shipments from Japan.</li><li>Responsive UI and API integration for real-time tracking, booking and logistics updates, with secure data handling.</li></ul>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.atl.yardapp&amp;hl=en_IN" target="_blank" rel="noopener">Open on Play Store <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article><article class="card pc rise" style="--i:2;--dy:22px;--tile-bg:var(--t3-bg);--tile-fg:var(--t3-fg)">
+        <div class="pch"><span class="tile" aria-hidden="true">K</span><div><h3>Khilta Bachpan <span class="live">Live</span></h3><span class="kind">Flutter</span></div></div>
+        <p class="pd">Crèche management app for child monitoring and daily operations.</p>
+        <ul class="tags"><li>Flutter</li><li>Dart</li><li>BLoC</li><li>MVVM</li><li>Secure APIs</li></ul>
+        <ul class="pb"><li>Streamlines child monitoring and daily operational workflows.</li><li>Responsive UI with reusable, modular components and secure API integration in production.</li></ul>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.mw.mobile_creche&amp;hl=en_IN" target="_blank" rel="noopener">Open on Play Store <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article><article class="card pc rise" style="--i:0;--dy:22px;--tile-bg:var(--t1-bg);--tile-fg:var(--t1-fg)">
+        <div class="pch"><span class="tile" aria-hidden="true">C</span><div><h3>CINI <span class="live">Live</span></h3><span class="kind">Kotlin</span></div></div>
+        <p class="pd">Management information system app by Microware.</p>
+        <ul class="tags"><li>Kotlin</li><li>AI-assisted</li></ul>
+        <ul class="pb"><li>Contributed to development using AI-assisted workflow (Claude, Copilot, Codex).</li></ul>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.microware.cini&amp;hl=en_IN" target="_blank" rel="noopener">Open on Play Store <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article><article class="card pc rise" style="--i:1;--dy:22px;--tile-bg:var(--t2-bg);--tile-fg:var(--t2-fg)">
+        <div class="pch"><span class="tile" aria-hidden="true">E</span><div><h3>e-Lekha <span class="live">Live</span></h3><span class="kind">Kotlin Multiplatform</span></div></div>
+        <p class="pd">Field app for microfinance staff: customer registration, group training, loan KYC and repayment collection.</p>
+        <ul class="tags"><li>Kotlin Multiplatform</li><li>AI-assisted</li></ul>
+        <ul class="pb"><li>Contributed to development using AI-assisted workflow (Claude, Copilot, Codex).</li></ul>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.psc.elekha&amp;hl=en" target="_blank" rel="noopener">Open on Play Store <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article><article class="card pc rise" style="--i:2;--dy:22px;--tile-bg:var(--t3-bg);--tile-fg:var(--t3-fg)">
+        <div class="pch"><span class="tile" aria-hidden="true">A</span><div><h3>Astitva <span class="live">Live</span></h3><span class="kind">Kotlin</span></div></div>
+        <p class="pd">Case tracking for community gender centres and paralegal workers.</p>
+        <ul class="tags"><li>Kotlin</li><li>AI-assisted</li></ul>
+        <ul class="pb"><li>Contributed to development using AI-assisted workflow (Claude, Copilot, Codex).</li></ul>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.wise.astitva&amp;hl=en_IN" target="_blank" rel="noopener">Open on Play Store <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+    </div>
+  </div>
+
+  <div class="view" id="v-experience" data-view="experience">
+    <div class="ph rise" style="--i:0;--dy:14px"><h1>Experience</h1><p>1+ year building production Flutter apps.</p></div>
+    <section class="card rise" style="--i:1;--dy:20px">
+      <h2>Flutter Developer <small>Aug 2025 to present</small></h2>
+      <p class="co">Microware Computing &amp; Consulting Pvt. Ltd., Gurugram, India</p>
+      <ul class="pb big"><li>Developed and shipped production Flutter features end to end across live Play Store applications, owning development, API integration, testing, bug fixing, release updates and post-release Crashlytics monitoring.</li><li>Built reusable Flutter UI components with BLoC, Riverpod, GetX and Provider, applying MVVM and Clean Architecture to separate UI, business logic, repository and data layers.</li><li>Integrated REST APIs with authentication, error-state handling and offline-first local caching using Dio, Hive and SQLite.</li><li>Implemented Firebase Cloud Messaging push notifications with foreground and background handling and deep-link routing to the correct in-app screen.</li><li>Automated build, test and release preparation with GitHub Actions CI/CD pipelines, keeping builds reproducible across the team.</li><li>Built location features with the Google Maps SDK: pickup and drop selection, location search and live location tracking.</li></ul>
+      <button class="cta pri js-res" type="button">Download resume</button>
+    </section>
+  </div>
+
+  <div class="view" id="v-skills" data-view="skills">
+    <div class="ph rise" style="--i:0;--dy:14px"><h1>Skills</h1><p>Everything I use to build, test and ship Flutter apps.</p></div>
+    <div class="strip" aria-label="Tech stack"><b>Production tested</b><div class="mq"><ul><li>Flutter</li><li>Dart</li><li>BLoC</li><li>Riverpod</li><li>GetX</li><li>Provider</li><li>MVVM</li><li>Clean Architecture</li><li>Firebase</li><li>REST APIs</li><li>Dio</li><li>Hive</li><li>SQLite</li><li>Supabase</li><li>GitHub Actions</li><li>Google Maps SDK</li><li>Kotlin</li><li>KMP</li><li>Claude AI</li><li>GitHub Copilot</li><li>OpenAI Codex</li><li>Flutter</li><li>Dart</li><li>BLoC</li><li>Riverpod</li><li>GetX</li><li>Provider</li><li>MVVM</li><li>Clean Architecture</li><li>Firebase</li><li>REST APIs</li><li>Dio</li><li>Hive</li><li>SQLite</li><li>Supabase</li><li>GitHub Actions</li><li>Google Maps SDK</li><li>Kotlin</li><li>KMP</li><li>Claude AI</li><li>GitHub Copilot</li><li>OpenAI Codex</li></ul></div></div>
+    <div class="sk-grid"><section class="card rise" style="--i:0;--dy:20px"><h2>Languages</h2><ul class="tags"><li>Dart</li><li>SQL</li></ul></section><section class="card rise" style="--i:1;--dy:20px"><h2>Flutter</h2><ul class="tags"><li>Flutter SDK</li><li>Flutter for Mobile and Web</li><li>Platform Channels</li><li>Isolates</li><li>Responsive UI</li><li>Animations</li></ul></section><section class="card rise" style="--i:2;--dy:20px"><h2>State management</h2><ul class="tags"><li>BLoC</li><li>Cubit</li><li>Riverpod</li><li>GetX</li><li>Provider</li></ul></section><section class="card rise" style="--i:0;--dy:20px"><h2>Architecture</h2><ul class="tags"><li>MVVM</li><li>Clean Architecture</li><li>Repository Pattern</li><li>Dependency Injection</li><li>SOLID</li><li>Offline-first</li><li>Caching</li><li>Pagination</li></ul></section><section class="card rise" style="--i:1;--dy:20px"><h2>Backend and cloud</h2><ul class="tags"><li>REST APIs</li><li>Dio</li><li>JSON</li><li>OAuth 2.0</li><li>JWT</li><li>WebSockets</li><li>Hive</li><li>SQLite</li><li>Firebase (FCM, Crashlytics, Auth, Remote Config, Firestore, Realtime DB, Analytics)</li><li>Supabase</li><li>NestJS</li><li>Prisma</li><li>PostgreSQL</li></ul></section><section class="card rise" style="--i:2;--dy:20px"><h2>Tools and delivery</h2><ul class="tags"><li>Git</li><li>GitHub</li><li>GitHub Actions</li><li>CI/CD</li><li>Postman</li><li>Unit testing</li><li>Widget testing</li><li>Integration testing</li><li>Google Maps SDK</li><li>Location services</li><li>Geofencing</li><li>Text-to-Speech</li><li>Deep linking</li><li>App Links</li><li>i18n</li><li>Play Store deployment</li><li>Agile</li><li>Scrum</li><li>Jira</li></ul></section><section class="card rise" style="--i:0;--dy:20px"><h2>AI-assisted development</h2><ul class="tags"><li>Claude AI</li><li>GitHub Copilot</li><li>OpenAI Codex</li><li>Prompt engineering</li><li>Kotlin / KMP (working knowledge)</li></ul></section></div>
+  </div>
+
+  <div class="view" id="v-about" data-view="about">
+    <div class="ph rise" style="--i:0;--dy:14px"><h1>About</h1><p>Flutter developer who ships.</p></div>
+    <div class="pgrid">
+      <section class="card rise" style="--i:0;--dy:20px"><h2>Who I am</h2>
+        <p class="pd">I build, test and release cross-platform apps end to end, from API integration to Crashlytics monitoring after launch.</p>
+        <ul class="hl"><li>3 live Flutter apps on the Play Store, all on BLoC and MVVM.</li><li>Worked with an international client in Japan on a vehicle logistics app.</li><li>Mobile and web from one codebase.</li><li>Also built Kotlin and KMP apps using AI assistance (Claude, Copilot, Codex).</li></ul>
+      </section>
+      <section class="card rise" style="--i:1;--dy:20px"><h2>Education</h2>
+        <ul class="tl"><li><b>MCA</b>Gurugram University<br><span>2023 to 2025</span></li><li><b>BCA, Cloud Computing</b>SGT University<br><span>2020 to 2023</span></li></ul>
+      </section>
+      <section class="card rise" style="--i:2;--dy:20px"><h2>Awards and more</h2>
+        <ul class="hl"><li>1st place, Creative Minds, EDUDE FIESTA (K.R. Mangalam University)</li><li>1st place, Synergy 2022 (SGT University)</li><li>3rd place, Ideathon, PRADARSHAN 2.0 (SGT University)</li><li>Microsoft Azure Developer Community, participation</li><li>Languages: English, Hindi</li></ul>
+      </section>
+    </div>
+  </div>
+
+  <div class="view" id="v-contact" data-view="contact">
+    <div class="ph rise" style="--i:0;--dy:14px"><h1>Contact</h1><p>Open to Flutter roles. Reach me any way you like.</p></div>
+    <div class="pgrid">
+      <section class="card rise" style="--i:0;--dy:20px"><h2>Get in touch</h2>
+        <ul class="hl ci"><li>Email: developer.ujjwalsharma@gmail.com</li><li>Phone: +91 8527038960</li><li>Location: Gurugram, India</li></ul>
+        <div class="reach rbig"><button class="cc" type="button" data-copy="developer.ujjwalsharma@gmail.com" data-msg="Email copied">Copy email</button><button class="cc" type="button" data-copy="+91 8527038960" data-msg="Number copied">Copy phone</button><a class="cc" href="https://linkedin.com/in/developerujjwalsharma" target="_blank" rel="noopener">LinkedIn</a><a class="cc" href="https://github.com/developerujjwal" target="_blank" rel="noopener">GitHub</a></div>
+      </section>
+      <section class="card rise" style="--i:1;--dy:20px"><h2>Prefer to write?</h2>
+        <p class="pd">Send a message and it opens in your email app, ready to send.</p>
+        <div class="ctas"><button class="cta pri" type="button" id="gomsg">Write a message</button><button class="cta js-res" type="button">Download resume</button></div>
+      </section>
+    </div>
   </div>
 </main>
+
+<div class="intro" id="intro" role="status">
+  <div class="lg">US</div>
+  <div class="ld" id="introtxt">Initializing Flutter engine... 0%</div>
+  <div class="ln"><i id="introbar"></i></div>
+  <button type="button" id="introskip">Skip intro</button>
+</div>
+
 
 <div class="snack" id="snack" role="status" aria-live="polite"></div>
 
@@ -673,9 +877,10 @@ button{font:inherit;color:inherit}
     setTimeout(function(){setState('idle')},3500);
   });
   [fName,fEmail,fMsg].forEach(function(el){el.addEventListener('input',function(){mark(el,false);err.textContent=''})});
+  var gm=document.getElementById('gomsg');if(gm)gm.addEventListener('click',function(){document.getElementById('msgbtn').click()});
   document.getElementById('msgbtn').addEventListener('click',function(){
     setState('idle');
-    try{box.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'})}catch(e){}
+    go('home');try{box.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'})}catch(e){}
     setTimeout(function(){try{(fName.value?fMsg:fName).focus({preventScroll:true})}catch(e){}},350);
   });
 
@@ -697,6 +902,57 @@ button{font:inherit;color:inherit}
     hotTxt.textContent='Reloaded';hot.classList.remove('zap');void hot.offsetWidth;hot.classList.add('zap');
     setTimeout(function(){hotTxt.textContent='Hot reload';hot.classList.remove('zap')},1400);
   });
+
+
+
+  /* resume download (works in the claude.ai viewer and as a plain file) */
+  var PDF_B64="JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQSA8PAovUyAvVVJJIC9UeXBlIC9BY3Rpb24gL1VSSSAobWFpbHRvOmRldmVsb3Blci51amp3YWxzaGFybWFAZ21haWwuY29tKQo+PiAvQm9yZGVyIFsgMCAwIDAgXSAvUmVjdCBbIDEyMC4zOTA2IDc2MC4zNDk4IDI2OC4yNzE0IDc3MS4zODk4IF0gL1N1YnR5cGUgL0xpbmsgL1R5cGUgL0Fubm90Cj4+CmVuZG9iago1IDAgb2JqCjw8Ci9BIDw8Ci9TIC9VUkkgL1R5cGUgL0FjdGlvbiAvVVJJIChodHRwczovL2xpbmtlZGluLmNvbS9pbi9kZXZlbG9wZXJ1amp3YWxzaGFybWEpCj4+IC9Cb3JkZXIgWyAwIDAgMCBdIC9SZWN0IFsgMjc1Ljc3ODYgNzYwLjM0OTggNDMzLjI0NTggNzcxLjM4OTggXSAvU3VidHlwZSAvTGluayAvVHlwZSAvQW5ub3QKPj4KZW5kb2JqCjYgMCBvYmoKPDwKL0EgPDwKL1MgL1VSSSAvVHlwZSAvQWN0aW9uIC9VUkkgKGh0dHBzOi8vZ2l0aHViLmNvbS9kZXZlbG9wZXJ1amp3YWwpCj4+IC9Cb3JkZXIgWyAwIDAgMCBdIC9SZWN0IFsgNDQwLjc1MyA3NjAuMzQ5OCA1NTEuNzA1IDc3MS4zODk4IF0gL1N1YnR5cGUgL0xpbmsgL1R5cGUgL0Fubm90Cj4+CmVuZG9iago3IDAgb2JqCjw8Ci9BIDw8Ci9TIC9VUkkgL1R5cGUgL0FjdGlvbiAvVVJJIChodHRwczovL3BsYXkuZ29vZ2xlLmNvbS9zdG9yZS9hcHBzL2RldGFpbHM/aWQ9Y29tLnF1ZXN0YWxsaWFuY2UucGxlbXlxdWVzdCZobD1lbl9JTikKPj4gL0JvcmRlciBbIDAgMCAwIF0gL1JlY3QgWyA0OTcuNDA1NiAzMTcuNjk5OCA1NTkuMjc1NiAzMjkuNDk5OCBdIC9TdWJ0eXBlIC9MaW5rIC9UeXBlIC9Bbm5vdAo+PgplbmRvYmoKOCAwIG9iago8PAovQSA8PAovUyAvVVJJIC9UeXBlIC9BY3Rpb24gL1VSSSAoaHR0cHM6Ly9wbGF5Lmdvb2dsZS5jb20vc3RvcmUvYXBwcy9kZXRhaWxzP2lkPWNvbS5hdGwueWFyZGFwcCZobD1lbl9JTikKPj4gL0JvcmRlciBbIDAgMCAwIF0gL1JlY3QgWyA0OTcuNDA1NiAyNjYuMjk5OCA1NTkuMjc1NiAyNzguMDk5OCBdIC9TdWJ0eXBlIC9MaW5rIC9UeXBlIC9Bbm5vdAo+PgplbmRvYmoKOSAwIG9iago8PAovQSA8PAovUyAvVVJJIC9UeXBlIC9BY3Rpb24gL1VSSSAoaHR0cHM6Ly9wbGF5Lmdvb2dsZS5jb20vc3RvcmUvYXBwcy9kZXRhaWxzP2lkPWNvbS5tdy5tb2JpbGVfY3JlY2hlJmhsPWVuX0lOKQo+PiAvQm9yZGVyIFsgMCAwIDAgXSAvUmVjdCBbIDQ5Ny40MDU2IDIwMy4wOTk4IDU1OS4yNzU2IDIxNC44OTk4IF0gL1N1YnR5cGUgL0xpbmsgL1R5cGUgL0Fubm90Cj4+CmVuZG9iagoxMCAwIG9iago8PAovQW5ub3RzIFsgNCAwIFIgNSAwIFIgNiAwIFIgNyAwIFIgOCAwIFIgOSAwIFIgXSAvQ29udGVudHMgMTQgMCBSIC9NZWRpYUJveCBbIDAgMCA1OTUuMjc1NiA4NDEuODg5OCBdIC9QYXJlbnQgMTMgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIAogIC9UcmFucyA8PAoKPj4gL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjExIDAgb2JqCjw8Ci9QYWdlTW9kZSAvVXNlTm9uZSAvUGFnZXMgMTMgMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iagoxMiAwIG9iago8PAovQXV0aG9yIChVamp3YWwgU2hhcm1hKSAvQ3JlYXRpb25EYXRlIChEOjIwMjYxMDE1MTExMzE0KzAwJzAwJykgL0NyZWF0b3IgKFwodW5zcGVjaWZpZWRcKSkgL0tleXdvcmRzICgpIC9Nb2REYXRlIChEOjIwMjYxMDE1MTExMzE0KzAwJzAwJykgL1Byb2R1Y2VyIChSZXBvcnRMYWIgUERGIExpYnJhcnkgLSBcKG9wZW5zb3VyY2VcKSkgCiAgL1N1YmplY3QgKFwodW5zcGVjaWZpZWRcKSkgL1RpdGxlIChVamp3YWwgU2hhcm1hIC0gRmx1dHRlciBEZXZlbG9wZXIgUmVzdW1lKSAvVHJhcHBlZCAvRmFsc2UKPj4KZW5kb2JqCjEzIDAgb2JqCjw8Ci9Db3VudCAxIC9LaWRzIFsgMTAgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iagoxNCAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCAzNzI0Cj4+CnN0cmVhbQpHYiIvKT5CQUxoKDRPVDVrYmciRiM4QmA4IU9GRlAwVEpgP0coOmhvPElTWE0iIS1eOV0lQ0crSixGYm5GWzghPWZJOkluPC9rMHAkZTRIKkk0akZRYz1uLmlhMDIzOTNaX2U3a05wYGVfJGxPUD0zUm0qTXA5OlkzLkxJaihJZ1U6MTBMTzBkZDFrVE1eTkkyZHIjIylmX3RpdHE/OkllYW90c2JtVTouIikqTFxnRGpwPEpiYCVSVVs1cVM0QSotRi1vJjh1ajpdMyM7U2JLJUdyXyMwTGJpXHE5YzJCcWlrV09DaFY0blFfUUhJX0Q5SjF0alsjV2tKV083c21EJC5DLEhiITZrRE9NZ3BAXS8zZFwzWXFPczA+NSNPS04haTBRYS8vJyxnU1dnSDNPT2ssRldZaDooKVNqRTlIIj4uXlE9SGdQVlpfcEd0P0A0JkEwamwsVTRQTV5aamxhRyZ1JWRobjBgKWBVSEwyUVgiSzR1cE5mQDtJTWZuUm5aZ1pqVyxZbUUjXHI6dUFiblYwT1RzN2I3LWRhYWwnYjlmM1NqP2pdJlYxMF9VZFxkQ1k4Y01mJEJRX1FJPV9USU85dEYwZWdmbjwlVWNlbjUpVGRTPFIjY0VvZGNwR0s6ZSdtRi1XZWQ/WmYsXlldIkIudXMiS2w1VmdmS0FlPz8ma3AyOWc9XT5OSTYjNmdPMEgvWWZaNGs+QSZSJTYtaE5sdSRBY1lSZk9SZG9VND1acGRsWU5nZHA/ZTMwPCpERjgtaHEyISFMXW86VV4+TjNFSHExRDAuVUJSI1JXM2khaWYrQDZxQEgtNDEzSFBlM0RnQC5jLVlSby5ZcDRMQU80QFw1bzI+OThpRUQ/aG9WPzE9Q11GO2JJOztSIkhoJ2BscGVSaD0+Sy1JZkFnOGNAJD9Xbi1ZZ2JTLyVFcSVPZ0MxLEUwPCRqJTVvNlBrLGElaV9YS3NwLElMLXJTXU9EUkdWJT9TXy5qLGEoPHIsJ2llNTlRS3MtMjJNSnQlTUdxMSk/OEgyOThRcEgrQyllOl5GUVIqNjE1NSpdPFtwZ1ImI2pfYjIpKDNqaGclPlpSKjtSUVVhK15nXiMoK05cbVUqXy4malRoQElsUmZUZ3NKZ14vcjREdC5gcyEjak4mQHVfcF4uQz08dC0qKSNFSS5FUFMqWzpFbT4/JzhWTDdYbCVkQytNazUxb19JU29GVkBuLT9nVCllRyInKFJRSCQ6WkooM1AhTiVLaXNYVDZzIyIuLG9ZTi4zKDlvNXFlUTVxKE9ocW1tMmloXUxoSztMSCQoVz51P0xnUDIzTjpEXGlZaVNhV0Mxblo3RTJdQGBpYTRKbSJfdTpmRkJYS0EmV20oUGpsQy87TXJBIiZ1LjluWS0/Iz9NUVZDMV9wOCdxKHVyVjVTXz44SEBKNkFdX15XMCshbk1xUkAsN2VxVjAsdTpjK05oPTdhNXFcTiJpRidRTz9hdCouTlQncUYkPSQ6byohLU5zZ2NnWjhYUkFlOEs4NjU2LFNvczhdOjoxL0wvIy9naDM2PT5DYztIaDYrVy9eX05cRlAlJGxcVU9vMGJeN191MzNtZUIvP2QtWS5AWmczPWozODo0KVkvNmYvcEQjJiNwaVlGXGFQIU1JOWJAVDciPHFaP2s4VkpDI2ppcSJJYGs0W0JBbUF0M2tIQW06OWRtYjNyZyghWUpjQEIqKjpHbD0wVzFTIWVjXDtIbkAtNjRLOToyRmpRWWVBcSNNST8/Pjk2KW90ckhPPWs8KjtQWFtbaU1kNjlkXi4rKT9zNWNgZFBFYSQ/W1M7JGFGZSsrLTstJloqKi0sUSNqIyYhJE5WTj0/a1gtbVssOk9PMDgjKSQpZz1zLiFQWFBdaUVMVSwsSzUhMV1QXDtVLyVOc2ZNX2ViNCQ0ZCItIkNhUlJaaiRbPGNmVmNlI25iVD5zN3VlWF1VYi9lYjFQYWRLcy0oZj1cJUhqQkU8Ui0mQVBxVG5hZGxycG1zalNKZldvREZeJkAtMlxcbmY8W2tASj9UQihmKGxWYzFpLCg0YGpCRD4xcD5nM0FtWG0wVkBMNi4tMCVYUyxcUSRDWWByXkY6Ri04OTphRzoyNWBkKTwzMUQvRzhMWHBfcUplX050Tkx1K144TV5bQVpWVXA/NlwtQ0kyP2pJZ0c+VWArJitUWSEsbTA2WUFUTkpAKGdXYWJbbkZJTUByQU9EJ0xWKWZKWEVbQic7WmBpOkliOFxmbFpPVl1SMkFxTjEwXjghdTFcJSEiPElFITJTUjUqRGhqXUthQV5wTF40JThXOltLbSlQQWVnSiNvbDc3Q2xNI29NJXIhSTZ0I2wtRmlTdTQpaS1HXDovXXNCMylMOmwyJmpAT0FENGxHQVImcGVTbVBmPzQ7Uy9RWXJpKmtEQiIpYkBYZEZmQG8/MV0iNCNANjFrP1A5XUU3ZSFCU11gOkpERGdlXi9ZLEs6NiM9KmsyPTpLbS5jTVdqKEcoS1I+TFcnZCdTcic5LyE4ViQ9RCRVRC5eKzMjTUhhR3JRQD1dYWNuVlhFJCtYbU4uYmlDRVFTbCpPJG5BbWlNLE0yKUJCXWMpc2RpTC1wazkwaTp1RHFoJVEzaFVhYDtBU1hIQi09NHFQP0xRWTdSKVo9aDouSW0sMic5OD5fcTgyV2hRRjkhSjNHRFVcRDEpLFw/Nk5nLS1Ic2xcM25JZ2EuYGM4V0UqI0g9bEU9R1xTQiliPF1sWjxVLiE7KD9IVmU8JUA3ZHUlPURQNnEqZVRQPD1xbUEsdUk1WzFSTGthLzhlRk0wQnU/Ki1rNzpcPixHQ0VRQ1ZCdTtRaXJILWRZKnNvKipRRkBAJUtMXm9AVyclRTY9aXE0PyFiSUQyLmlgTE80bFBfbGhaUTZYcDtYQl04Nj1HL2RcayJPOVE2MDRtYihJMTpRT0Y5YC04VFZhPlNBP2pIJ0hdNzdUWElqPUprRmVkTEtcKWhdaV0zJ0ptOUVeOGZqQkxTRFJoJSwpVXVOKTYzZkBwITsmPEdnVXNuXz9DSGlSP0o2R11KPFFxb05aTV8wTCJOZmc9S3I4ZHBmQG5DVzgkY2E8TTRMIlE5PXA9VkMiSEZJSW50XU8/OE5hQXBuVDtROXA3Si5bQWktaSs0NHJxdGZKVTZqZVM5a21vZ2dhIWw9blJSLmVGW3FyRU1XIXRoVC1nOmFgRC5cM0ooLmIuW2RkIXU0LFQqNzt1V2UjRzhbOC1vYjs/XzdUaFBdY24iZVcnQ3FaU0xIQFtAJDAyN2YxLlpadGs6SiJeXWFOak1aKWQqYSMuQzBwUFJvUVhLWllwMTpiOXA4QTs8UWxuJHEpUj9BODI7PS1VZDZnKz5wVTEyU042ZFFbLGIsSlFVWmM6bzNoREFyY0s1ajEmLl48OjUiXzFCZ0ZONjhUak4/Z2duPClfUjIwVlNfK0NIWkJRcjlcR1c1TUQkMlszMVkqLEloXjlCUFNYU2tBb1BVLjBVR2RLby5VNmdwTi4pSC8iXkctYVBqY1M3aD1caFc8TDddLHM9ZyVqJVNmXVZYK25cJFYwKClcdDRkV3NxSzpBbTklcDBqOHVQPm91N1dnTjM3NFU8TkVgLGBsZCVkTzRkRSpUUENWY2RXQmhxLiIxVWslL1g1JiFZXDopKTB1WVViOWVOW2NEKk9TLnUmbCtQNCRjVyNFQm9XYCJKUVcyZDBEOGpbZDc3ZFFbSio1dGpfZSNQbV9GMmNWR1hEPUZsV1VfP2w7UGNGY2dgcDElKVdXQT5lPSFVRWZtbGgtV2JwUEwvcSsoWCFjcSZpZFRTalFGOD9hTS1dYVEuZlo9WiRgbDVibklLSUtrcFVhQEMxSE0vTnFeLWRwZEs5SytDQXFRP089R3JIRjQob0w6SU5HQj0oSTs4WFs0Ry5lWG9rTCsrXU9oK2ZOcWldX0JwZDg5cy4oI1FlSFE9aUlMJjdwVGk9T2ZILVZlXURGY0pCJjhDWVVkclVxPEJqP0hYPVojUGhpLEJcTy5fSjlHdSxwXCNFUiwiWl4/NHFUQi5MSCRHamcwY0NxJGBQUz1LPjg+QmRFN0pXKW9mUFcxYWFoakZIazliaF1eJ3JJZ09yaEM7K1tsUyNKJl0uVExtRjgiMS9lKCZVKjhLTFArZyVlXmc5Y29oPWRsUF40SEUpO1NVRi5tO0toP0dxdClSYkI4ZFhbITYvSyxmbjxPTlBpR11ucCM2MENMPl1HS1pyTD5fIVpeJDlVOyNQSEhzVGVwSGhyX0E7ZFBCdCJPMF5ZOSJmSTFUO3Q7KUFGcTp0QENFR3VTVmUqZUxAUFwwOGwmbGkhLkdlNEdJNy4oLm4uTmBRWiMoUkR0ZiV0amsvRkVxaldJaS5SNWYnRTxrYjBtTHRSYU0pRT0/NT1wMjBhYVJJWG0lOUllQCFIbF1dR2A/YzFySmEhbCtGSEFkRy9QTzdlXSsqYjxkUHJFb0s+Wyg2Y0YvRWlgMTxjWEBRODJZPDdpZDdDMTVqaTdcaitrIVBlLktjN2gsJ1klJFUnOENNXTssP28/TihdcFYpUDZnOkdAPil0TlQ3NCYpaElfcUYqcWtwP2VIMWhVLWtpMXJMM3IoWmxAI2ooU0duJSltZSgtU1JzNWFdb1R0YmJeXVYuK15JanBGcVw4LGc3LVBeRD5VMFtaMG1lJWJiaS9OQGhfWVNiWWxLKmNbLHVUISJRUWczYG8yQVUiMjxpM09Sa0ZydTsjR2tySS4nXTxpIi1HbTxAJ00sMF1JYHEvZmVLSiFHRnRpOFRiKSdLOUBHW1NJWD8rQksyTFUmXmcnU1dDRmdKYy50TmZdbWZkXGw3QjlEMDtBLSpfVCdNbSNqcTFXTF0oamhXOEAsWTdTQmhxVG0jblRbIiRmJWNIYzsnb0pUVkByOChXT1BmSSwuJiJeST9KLH4+ZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgMTUKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMDIgMDAwMDAgbiAKMDAwMDAwMDIwOSAwMDAwMCBuIAowMDAwMDAwMzIxIDAwMDAwIG4gCjAwMDAwMDA1MTIgMDAwMDAgbiAKMDAwMDAwMDcwOSAwMDAwMCBuIAowMDAwMDAwODkzIDAwMDAwIG4gCjAwMDAwMDExMjggMDAwMDAgbiAKMDAwMDAwMTM1MCAwMDAwMCBuIAowMDAwMDAxNTc3IDAwMDAwIG4gCjAwMDAwMDE4MzEgMDAwMDAgbiAKMDAwMDAwMTkwMSAwMDAwMCBuIAowMDAwMDAyMjA5IDAwMDAwIG4gCjAwMDAwMDIyNzAgMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8OTMwOTJmODcwZWE1MDQ1MjQ1NWEyOTQzNDIwODk3ODk+PDkzMDkyZjg3MGVhNTA0NTI0NTVhMjk0MzQyMDg5Nzg5Pl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyAxMiAwIFIKL1Jvb3QgMTEgMCBSCi9TaXplIDE1Cj4+CnN0YXJ0eHJlZgo2MDg2CiUlRU9GCg==";
+  function pdfBlob(){var bin=atob(PDF_B64),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return new Blob([u],{type:'application/pdf'})}
+  function plainDownload(){
+    var a=document.createElement('a');a.href=URL.createObjectURL(pdfBlob());a.download='Ujjwal_Sharma_Resume.pdf';a.style.display='none';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(a.href)},4000);
+  }
+  function getResume(){
+    var c=window.claude&&window.claude.use?window.claude.use('downloads'):null;
+    if(!c){plainDownload();return}
+    c.then(function(d){
+      if(!d){plainDownload();return}
+      return d.save({filename:'Ujjwal_Sharma_Resume.pdf',data:pdfBlob()}).then(function(){toast('Resume saved')},function(e){if(e&&e.code!=='declined')toast('Download not available here. Open the page in a browser.')});
+    },function(){plainDownload()});
+  }
+  document.querySelectorAll('.js-res').forEach(function(b){b.addEventListener('click',getResume)});
+  document.querySelectorAll('.cc[data-copy]').forEach(function(b){b.addEventListener('click',function(){copyText(b.dataset.copy,b.dataset.msg)})});
+
+  /* pages */
+  var views=[].slice.call(document.querySelectorAll('.view')),navs=[].slice.call(document.querySelectorAll('.tnav a'));
+  function go(name,instant){
+    if(!document.getElementById('v-'+name))name='home';
+    views.forEach(function(v){v.classList.toggle('on',v.dataset.view===name)});
+    navs.forEach(function(a){a.classList.toggle('act',a.dataset.v===name)});
+    try{window.scrollTo(0,0)}catch(e){}
+  }
+  navs.forEach(function(a){a.addEventListener('click',function(ev){ev.preventDefault();go(a.dataset.v)})});
+  document.querySelectorAll('a.va,a.cta[href^="#"]').forEach(function(a){a.addEventListener('click',function(ev){ev.preventDefault();go(a.getAttribute('href').slice(1))})});
+  go('home');
+
+  /* intro loader */
+  (function(){
+    var el=document.getElementById('intro');if(!el)return;
+    var t=document.getElementById('introtxt'),b=document.getElementById('introbar'),done=false;
+    function end(){if(done)return;done=true;el.classList.add('out');setTimeout(function(){el.style.display='none'},700)}
+    document.getElementById('introskip').addEventListener('click',end);
+    if(reduce){end();return}
+    var t0=null;
+    function f(ts){
+      if(done)return;if(t0===null)t0=ts;
+      var p=Math.min((ts-t0)/1500,1);
+      b.style.width=(p*100)+'%';
+      t.textContent=p<1?'Initializing Flutter engine... '+Math.round(p*100)+'%':'Ready!';
+      if(p<1)requestAnimationFrame(f);else setTimeout(end,250);
+    }
+    requestAnimationFrame(f);
+    setTimeout(end,4000);
+  })();
 
   /* count-up numbers */
   if(!reduce){

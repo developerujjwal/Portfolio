@@ -349,6 +349,13 @@ html{scroll-snap-type:none!important}
 .rbig{justify-content:flex-start}
 .view .strip{margin:0 0 0}
 .view .card h2{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.2rem .8rem}
+
+@media (max-width:999px){
+  .top{position:sticky;top:8px;left:auto;right:auto;margin-bottom:12px;background:var(--surface)}
+  .view{padding-top:0}
+  .top .hot,.top .loc{display:none}
+  .tnav{margin-left:0}
+}
 /* skills */
 .srow{display:grid;grid-template-columns:5.2rem minmax(0,1fr);gap:.5rem;align-items:start;padding-block:.3rem;border-top:1px solid var(--line)}
 .srow:first-of-type{border-top:0;padding-top:0}
@@ -807,8 +814,18 @@ html{scroll-snap-type:none!important}
   });
 
   /* dock: copy email and number */
+  /* on phones: call opens the dialer, email opens the mail app; on desktop: copy */
+  function isTouch(){try{return window.matchMedia('(pointer: coarse)').matches||/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)}catch(e){return false}}
+  if(isTouch())document.querySelectorAll('.cc[data-copy]').forEach(function(b){b.textContent=b.dataset.copy.indexOf('@')>-1?'Email me':'Call me'});
+  function reachAct(b){
+    var v=b.dataset.copy;
+    if(isTouch()){
+      var href=v.indexOf('@')>-1?'mailto:'+v:'tel:'+v.replace(/[^\d+]/g,'');
+      var a=document.createElement('a');a.href=href;a.style.display='none';document.body.appendChild(a);a.click();document.body.removeChild(a);
+    }else{copyText(v,b.dataset.msg)}
+  }
   document.querySelectorAll('.dk[data-copy]').forEach(function(b){
-    b.addEventListener('click',function(){copyText(b.dataset.copy,b.dataset.msg)});
+    b.addEventListener('click',function(){reachAct(b)});
   });
 
   /* app showcase: phone screens follow the selected app */
@@ -921,7 +938,7 @@ html{scroll-snap-type:none!important}
     },function(){plainDownload()});
   }
   document.querySelectorAll('.js-res').forEach(function(b){b.addEventListener('click',getResume)});
-  document.querySelectorAll('.cc[data-copy]').forEach(function(b){b.addEventListener('click',function(){copyText(b.dataset.copy,b.dataset.msg)})});
+  document.querySelectorAll('.cc[data-copy]').forEach(function(b){b.addEventListener('click',function(){reachAct(b)})});
 
   /* pages */
   var views=[].slice.call(document.querySelectorAll('.view')),navs=[].slice.call(document.querySelectorAll('.tnav a'));
